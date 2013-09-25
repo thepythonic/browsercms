@@ -27,6 +27,12 @@ Rake::TestTask.new('test:units' => ['project:ensure_db_exists', 'app:test:prepar
   t.verbose = false
 end
 
+Rake::TestTask.new('spec') do |t|
+  t.libs << 'lib'
+  t.libs << 'spec'
+  t.pattern = "spec/**/*_spec.rb"
+end
+
 Rake::TestTask.new('test:functionals' => ['project:ensure_db_exists', 'app:test:prepare']) do |t|
   t.libs << 'lib'
   t.libs << 'test'
@@ -61,15 +67,15 @@ end
 desc "Run everything but the command line (slow) tests"
 task 'test:fast' => %w{test:units test:functionals test:integration features:fast}
 
-desc 'Runs all the tests'
+desc 'Runs all the tests, specs and scenarios.'
 task :test => ['project:ensure_db_exists', 'app:test:prepare'] do
-  tests_to_run = ENV['TEST'] ? ["test:single"] : %w(test:units test:functionals test:integration features)
+  tests_to_run = ENV['TEST'] ? ["test:single"] : %w(test:units spec test:functionals test:integration features)
   errors = tests_to_run.collect do |task|
     begin
       Rake::Task[task].invoke
       nil
     rescue => e
-      { :task => task, :exception => e }
+      {:task => task, :exception => e}
     end
   end.compact
 

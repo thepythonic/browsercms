@@ -64,6 +64,7 @@ Cms::Engine.routes.draw do
   resources :attachments, :only=>[:show, :create, :destroy]
 
   content_blocks :html_blocks
+  content_blocks :forms
   content_blocks :portlets
   post '/portlet/:id/:handler', :to=>"portlet#execute_handler", :as=>"portlet_handler"
 
