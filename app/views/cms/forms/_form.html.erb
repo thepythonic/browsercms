@@ -1,2 +1,42 @@
+<h3>Fields</h3>
+
+<span id="new-form-fields" style="display: none">
+  <h4>Sample Fields</h4>
+  <%= f.input :sample_field, label: "Untitled", input_html: {data: {field_type: "text_field"}}, disabled: true, readonly: 'readonly' %>
+</span>
+<%= f.input :new_field,
+            label: "Add New Field",
+            prompt: "Select a field type:",
+            collection: [["Text Field", :text_field], ["Text Box", :text_area]],
+            input_html: {class: 'add-new-field'}
+%>
+<h3>Form Settings</h3>
 <%= f.input :name, as: :cms_text_field %>
 <%= f.input :description %>
+<%= hidden_field_tag "field_ids" %>
+
+<%# Can't have a form inside a form, so this must go into the head. %>
+<%= content_for :html_head do %>
+<div id="modal-edit-field" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="model_label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="model_label">Edit Field</h3>
+  </div>
+  <div class="modal-body">
+    <%= simple_form_for(Cms::FormField.new(label: 'Untitled', field_type: 'text_field')) do |f| %>
+      <%= f.hidden_field :field_type %>
+      <%= f.input :label %>
+      <%= f.input :required %>
+      <%= f.input :unique %>
+      <%= f.input :instructions, as: :text %>
+      <%= f.input :default_value %>
+      <%= f.button :submit, "Save", style: 'display: none' %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-primary" href="#" id="create_field" data-dismiss="modal">Save</a>
+    <a aria-hidden="true"   class="btn" data-dismiss="modal" href="#">Never Mind</a>
+  </div>
+</div>
+<% end %>
+

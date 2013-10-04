@@ -65,6 +65,7 @@ Cms::Engine.routes.draw do
 
   content_blocks :html_blocks
   content_blocks :forms
+  resource :form_fields
   content_blocks :portlets
   post '/portlet/:id/:handler', :to=>"portlet#execute_handler", :as=>"portlet_handler"
 

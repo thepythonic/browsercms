@@ -104,6 +104,9 @@ jQuery(function ($) {
     };
 })(jQuery);
 
+// Add '#exists' to all jquery selector.
+jQuery.fn.exists = function(){ return this.length>0; }
+
 (function ($) {
     $.fn.disable_menu_button = function () {
         $(this).addClass('disabled');

@@ -1,5 +1,8 @@
 # Make a Form Builder
 
+* Formating validation (i.e. email, phone)
+* Captcha
+
 ## Reference Articles
 
 ### ActiveRecord::Store
