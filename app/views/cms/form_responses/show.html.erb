@@ -1,1 +1,6 @@
-<%= @form_response.data_columns %>
+<% use_page_title "View Entry" %>
+<%= content_for :button_bar, render('buttonbar') %>
+
+<% @entry.form.fields.each do |field|  %>
+    <b><%=  field.label %>:</b> <%= @entry.data_columns[field.name] %> <br>
+<% end %>

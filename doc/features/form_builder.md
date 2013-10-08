@@ -1,11 +1,19 @@
 # Make a Form Builder
 
-* Formating validation (i.e. email, phone)
-* Captcha
+* Determine where creating an entry should go
+* Sorting entries
+* Forms should be addressable.
+* Need to figure out where the 'Entries' for a form should appear.
 * Entries - Getting them to appear in content library doesn't work.
     1. Class isn't loaded (I think content_block route might be loading block classes on bootup.
     2. Navigation isn't working correctly either.
-* Can't edit or view form entries.
+* Can't edit form entries.
+
+## Eventual Goals
+
+* Formating validation (i.e. email, phone)
+* Captcha?
+
 
 ## Issues
 

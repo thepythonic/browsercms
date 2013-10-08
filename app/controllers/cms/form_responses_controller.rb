@@ -12,6 +12,10 @@ module Cms
       render 'cms/content_block/index'
     end
 
+    def show
+      @entry = Cms::FormResponse.find(params[:id])
+    end
+
     def create
       form = Cms::Form.find(params[:form_id])
       @form_response = Cms::FormResponse.new(form: form)
