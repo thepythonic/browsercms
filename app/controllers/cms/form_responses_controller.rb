@@ -16,6 +16,17 @@ module Cms
       render 'cms/content_block/index'
     end
 
+    def edit
+      @entry = Cms::FormResponse.find(params[:id])
+    end
+
+    def update
+      @entry = Cms::FormResponse.find(params[:id])
+      if @entry.update_attributes(response_params(@entry))
+        redirect_to form_response_path(@entry)
+      end
+    end
+
     def show
       @entry = Cms::FormResponse.find(params[:id])
     end
@@ -25,7 +36,7 @@ module Cms
       @form_response = Cms::FormResponse.new(form: form)
       @form_response.attributes = response_params(@form_response)
       if @form_response.save!
-        render :show
+        redirect_to entries_path(form)
       else
         render text: 'Fail'
       end

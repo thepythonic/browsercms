@@ -1,0 +1,5 @@
+<% use_page_title "Edit Entry" %>
+<%= render partial: 'cms/form_responses/form',
+           locals: {model: @entry,
+                    url: cms.form_response_path(@entry)}
+%>
