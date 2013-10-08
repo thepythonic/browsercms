@@ -3,7 +3,7 @@
 <% end %>
 <% use_page_title "Content Library / List #{content_type.display_name_plural}" %>
 <% @toolbar_title = "List #{content_type.display_name_plural}" %>
-<%= content_for :button_bar, render('cms/content_block/buttonbar') %>
+<%= content_for :button_bar, render('buttonbar') %>
 <table id="blocks" class="data cms-content-table table table-striped table-bordered table-hover"
        data-content_type="<%= content_type.content_block_type %>"
        data-versioned="<%= content_type.model_class.versioned? %>"

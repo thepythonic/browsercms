@@ -9,6 +9,10 @@ module Cms
       form = Cms::Form.where(id: params[:id]).first
       @blocks = Cms::FormResponse.where(form_id: params[:id]).paginate({page: params[:page], order: params[:order]})
       @content_type = FauxContentType.new(form)
+
+      # Shim for buttonbar
+      @entry = Cms::FormResponse.new(form: form)
+
       render 'cms/content_block/index'
     end
 
