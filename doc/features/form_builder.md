@@ -2,11 +2,17 @@
 
 * Formating validation (i.e. email, phone)
 * Captcha
-
+* Entries - Getting them to appear in content library doesn't work.
+    1. Class isn't loaded (I think content_block route might be loading block classes on bootup.
+    2. Navigation isn't working correctly either.
+* Can't edit or view form entries.
 
 ## Issues
 
-Right now, all fields for all FormResponses are being set as accessors. (in cms/forms/render.html.erb). This is probably not acceptable, but
+* When creating a form, the name/description should come before the fields.
+* Don't create a field when a form is first created.
+* When editing the field, if you hit enter it creates the field, but renders the JSON result
+* Creating multiple fields: I needs to blank the field form each time.
 
 ## Reference Articles
 

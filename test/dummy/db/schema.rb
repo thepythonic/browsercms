@@ -224,7 +224,8 @@ ActiveRecord::Schema.define(version: 20131004200959) do
   end
 
   create_table "cms_form_responses", force: true do |t|
-    t.text "data_columns"
+    t.text    "data_columns"
+    t.integer "form_id"
   end
 
   create_table "cms_form_versions", force: true do |t|

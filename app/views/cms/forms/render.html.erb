@@ -1,9 +1,10 @@
+<%= link_to "Entries", cms.entries_path(@content_block) %>
 <h1><%= @content_block.name%></h1>
 <p>
   <%=  @content_block.description %>
 </p>
 <%
-    form_response = Cms::FormResponse.for_form(@content_block)
+    form_response = Cms::FormResponse.new(form: @content_block)
 %>
 <%= simple_form_for(form_response, as: :form_response, url: cms.form_responses_path,) do |f| %>
     <%= hidden_field_tag :form_id, @content_block.id %>
