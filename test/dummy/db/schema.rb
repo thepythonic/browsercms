@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130925174919) do
+ActiveRecord::Schema.define(version: 20131004200959) do
 
   create_table "catalog_versions", force: true do |t|
     t.string   "name"
@@ -221,6 +221,10 @@ ActiveRecord::Schema.define(version: 20130925174919) do
     t.boolean "unique"
     t.text    "instructions"
     t.text    "default_value"
+  end
+
+  create_table "cms_form_responses", force: true do |t|
+    t.text "data_columns"
   end
 
   create_table "cms_form_versions", force: true do |t|

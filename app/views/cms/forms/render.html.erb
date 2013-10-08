@@ -1,2 +1,15 @@
-<p><b>Name:</b> <%= @content_block.name %></p>
-<p><b>Description:</b> <%= @content_block.description %></p>
+<h1><%= @content_block.name%></h1>
+<p>
+  <%=  @content_block.description %>
+</p>
+<%
+    form_response = Cms::FormResponse.for_form(@content_block)
+%>
+<%= simple_form_for(form_response, as: :form_response, url: cms.form_responses_path,) do |f| %>
+    <%= hidden_field_tag :form_id, @content_block.id %>
+    <% @content_block.fields.each do |field| %>
+        <%= f.input field.name, label: field.label %>
+    <% end %>
+    <%= f.button :submit, "Submit" %>
+<% end %>
+

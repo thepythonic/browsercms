@@ -3,6 +3,11 @@
 * Formating validation (i.e. email, phone)
 * Captcha
 
+
+## Issues
+
+Right now, all fields for all FormResponses are being set as accessors. (in cms/forms/render.html.erb). This is probably not acceptable, but
+
 ## Reference Articles
 
 ### ActiveRecord::Store

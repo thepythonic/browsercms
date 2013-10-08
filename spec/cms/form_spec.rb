@@ -22,4 +22,12 @@ describe Cms::Form do
     end
   end
 
+  describe '#field_names' do
+    it "should return a list of the field names as symbols" do
+      form = Cms::Form.new
+      form.fields << Cms::FormField.new(label: 'Name')
+      form.fields << Cms::FormField.new(label: 'Email')
+      form.field_names.must_equal [:name, :email]
+    end
+  end
 end
