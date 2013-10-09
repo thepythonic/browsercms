@@ -31,6 +31,10 @@ module Cms
       @entry = Cms::FormEntry.find(params[:id])
     end
 
+    def new
+      @entry = Cms::FormEntry.new(form_id: params[:form_id])
+    end
+
     def create
       form = Cms::Form.find(params[:form_id])
       @entry = Cms::FormEntry.new(form: form)

@@ -4,3 +4,4 @@
   <%= view_content_menu_button(@entry) %>
   <%= edit_content_menu_button(@entry) unless view == :edit %>
 </span>
+<%= link_to("New Entry", new_form_entry_path(form_id: @entry.form), class: "btn btn-primary pull-right") %>
