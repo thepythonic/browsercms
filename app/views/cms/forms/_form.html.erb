@@ -13,11 +13,11 @@
   <% end %>
   <%= f.simple_fields_for :new_entry do |e| %>
       <% @block.fields.each do |field| %>
-          <%= e.input field.name, label: field.label,
-                      disabled: true, readonly: 'readonly',
+          <%= e.input field.name,
+                      label: field.label,
                       wrapper: :append do
-            h = e.input_field field.name
-            h << link_to("Edit", "#", data: {field_ref: "", edit_path: edit_form_field_path(field.id)}, class: "btn edit_form_button")
+            h = e.input_field field.name, disabled: true, readonly: 'readonly'
+            h << link_to("Edit", "#", data: { edit_path: edit_form_field_path(field.id)}, class: "btn edit_form_button")
             h
           end %>
       <% end %>
@@ -26,9 +26,9 @@
 </div>
 <span id="new-form-fields" style="display: none">
   <h4>Sample Fields</h4>
-  <%= f.input :sample_field, label: "Untitled", input_html: {data: {field_type: "text_field"}}, disabled: true, readonly: 'readonly', wrapper: :append do
-    h = f.input_field :sample_field
-    h << link_to("Edit", "#", data: {field_ref: "", edit_path: new_form_field_path}, class: "btn edit_form_button")
+  <%= f.input :sample_field, label: "Untitled", wrapper: :append do
+    h = f.input_field :sample_field, disabled: true, readonly: 'readonly'
+    h << link_to("Edit", "#", data: { edit_path: new_form_field_path}, class: "btn edit_form_button")
     h
   end %>
 </span>

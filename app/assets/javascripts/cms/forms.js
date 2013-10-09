@@ -18,18 +18,16 @@ var FormBuilder = function() {
 // (Implementation: Clone existing hidden form elements rather than build new ones via HTML).
 FormBuilder.prototype.newField = function(field_type) {
   this.hideNewFormInstruction();
+  this.cloneSampleField(field_type);
+  this.enableEditButtons();
+};
+
+FormBuilder.prototype.cloneSampleField = function(field_type) {
   var cloned_field = $('.form_sample_field').clone();
   $('#new-form-fields').before(cloned_field);
   var input = cloned_field.find("[data-field-type='" + field_type + "']");
   cloned_field.removeClass('form_sample_field');
-//  this.assign_random_id(cloned_field);
-  this.enableEditButtons();
 };
-//
-//FormBuilder.prototype.assign_random_id = function(cloned_field) {
-//  var randomId = formBuilder.randomId();
-//  cloned_field.attr('id', randomId);
-//};
 
 // Function that triggers when users click the 'Edit' field button.
 FormBuilder.prototype.editFormField = function() {
@@ -50,7 +48,7 @@ FormBuilder.prototype.hideNewFormInstruction = function() {
 };
 
 // Add handler to any edit field buttons.
-FormBuilder.prototype.enableEditButtons = function(){
+FormBuilder.prototype.enableEditButtons = function() {
   $('.edit_form_button').on('click', formBuilder.editFormField);
 };
 
