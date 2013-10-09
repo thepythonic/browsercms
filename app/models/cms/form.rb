@@ -3,9 +3,6 @@ module Cms
     acts_as_content_block
     content_module :forms
 
-    # For UI only
-    attr_accessor :new_field, :sample_field
-
     has_many :fields, class_name: 'Cms::FormField'
     has_many :entries, class_name: 'Cms::FormEntry'
 
@@ -14,6 +11,7 @@ module Cms
     end
 
     # Provides a sample Entry for the form.
+    # This allows us to use SimpleForm to layout out elements but ignore the input when the form submits.
     def new_entry
       Cms::Entry.new(form: self)
     end

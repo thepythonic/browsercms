@@ -23,10 +23,11 @@ FormBuilder.prototype.newField = function(field_type) {
 };
 
 FormBuilder.prototype.cloneSampleField = function(field_type) {
-  var cloned_field = $('.form_sample_field').clone();
+  var sample_field_class = 'form_new_entry_sample_field';
+  var cloned_field = $('.' + sample_field_class).clone();
   $('#new-form-fields').before(cloned_field);
   var input = cloned_field.find("[data-field-type='" + field_type + "']");
-  cloned_field.removeClass('form_sample_field');
+  cloned_field.removeClass(sample_field_class);
 };
 
 // Function that triggers when users click the 'Edit' field button.
