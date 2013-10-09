@@ -2,7 +2,6 @@
 
 * Forms should allow either display a message to the user, or redirect them to another page.
 * Forms should be addressable.
-* Need to figure out where the 'Entries' for a form should appear. (The current 'entries' link won't work when forms live on their own)
 * Can have duplicate field names that creates issues when submitting forms.
 
 ## Eventual Goals
@@ -11,11 +10,11 @@
 * Formating validation (i.e. email, phone)
 * Captcha?
 * Allow sorting/reporting.
+* (IA) Need to figure out where the 'Entries' for a form should appear. (The current 'entries' link won't work when forms live on their own)
 
 ## Issues
 
 * When editing the field, if you hit enter it creates the field, but renders the JSON result
-* Creating multiple fields: I needs to blank the field form each time.
 
 ## Reference Articles
 

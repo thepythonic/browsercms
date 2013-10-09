@@ -13,4 +13,13 @@ describe Cms::FormField do
       field.name.must_equal :name
     end
   end
+
+  describe "#as_json" do
+    let(:field) { Cms::FormField.new(label: 'Name') }
+    it "should include #edit_path when being serialized" do
+      field.edit_path = "/cms/form_fields/1/edit"
+      json = JSON.parse(field.to_json)
+      json["edit_path"].must_equal "/cms/form_fields/1/edit"
+    end
+  end
 end

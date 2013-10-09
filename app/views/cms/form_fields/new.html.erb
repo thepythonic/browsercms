@@ -1,0 +1,9 @@
+<%= simple_form_for(@field, html: {id: 'ajax_form_field'}) do |f| %>
+  <%= f.hidden_field :field_type %>
+  <%= f.input :label %>
+  <%= f.input :required %>
+  <%= f.input :unique %>
+  <%= f.input :instructions, as: :text %>
+  <%= f.input :default_value %>
+  <%= f.button :submit, "Save", style: 'display: none' %>
+<% end %>

@@ -3,7 +3,7 @@
 <%= f.input :description %>
 <%= hidden_field_tag "field_ids" %>
 
-<h3>Preview</h3>
+<h3>    Preview</h3>
 <div id="form-preview">
 <% if @block.new_record? %>
 <div id="no-field-instructions">
@@ -14,6 +14,7 @@
 <span id="new-form-fields" style="display: none">
   <h4>Sample Fields</h4>
   <%= f.input :sample_field, label: "Untitled", input_html: {data: {field_type: "text_field"}}, disabled: true, readonly: 'readonly' %>
+  <%= link_to "Edit Field", "#", data: {field_ref: "", edit_path: new_form_field_path }, class: "btn edit_form_button", id: 'sample_edit_form' %>
 </span>
 <%= f.input :new_field,
             label: "Add New Field",
@@ -30,15 +31,7 @@
     <h3 id="model_label">Edit Field</h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for(Cms::FormField.new(label: 'Untitled', field_type: 'text_field')) do |f| %>
-      <%= f.hidden_field :field_type %>
-      <%= f.input :label %>
-      <%= f.input :required %>
-      <%= f.input :unique %>
-      <%= f.input :instructions, as: :text %>
-      <%= f.input :default_value %>
-      <%= f.button :submit, "Save", style: 'display: none' %>
-    <% end %>
+
   </div>
   <div class="modal-footer">
     <a class="btn btn-primary" href="#" id="create_field" data-dismiss="modal">Save</a>

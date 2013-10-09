@@ -22,7 +22,7 @@ module Cms
 
     def update
       @entry = Cms::FormEntry.find(params[:id])
-      if @entry.update_attributes(entry_params(@entry))
+      if @entry.update(entry_params(@entry))
         redirect_to form_entry_path(@entry)
       end
     end
