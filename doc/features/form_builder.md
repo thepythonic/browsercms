@@ -1,6 +1,6 @@
 # Make a Form Builder
 
-* BUG: After adding a field, need to reset the drop down to remove the selections.
+* BUG: After adding a field, it clears but does not correctly show the 'blank' value.
 * Forms should allow either display a message to the user, or redirect them to another page.
 * Forms should be addressable.
 * Can have duplicate field names that creates issues when submitting forms.

@@ -12,14 +12,17 @@ jQuery.fn.exists = function() {
 var FormBuilder = function() {
 };
 
-//ref
-
 // Add a new field to the form
 // (Implementation: Clone existing hidden form elements rather than build new ones via HTML).
 FormBuilder.prototype.newField = function(field_type) {
   this.hideNewFormInstruction();
   this.cloneSampleField(field_type);
   this.enableEditButtons();
+  this.resetAddFieldButton();
+};
+
+FormBuilder.prototype.resetAddFieldButton = function(){
+  $("#form_new_entry_new_field").val('1');
 };
 
 FormBuilder.prototype.cloneSampleField = function(field_type) {

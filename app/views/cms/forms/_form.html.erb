@@ -28,7 +28,7 @@
   <h4>Sample Fields</h4>
   <%= f.simple_fields_for :new_entry do |e| %>
             <%= e.input :sample_field, label: "Untitled", wrapper: :append do
-              h = f.input_field :sample_field, disabled: true, readonly: 'readonly'
+              h = e.input_field :sample_field, disabled: true, readonly: 'readonly'
               h << link_to("Edit", "#", data: {edit_path: new_form_field_path}, class: "btn edit_form_button")
               h
             end %>
