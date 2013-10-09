@@ -70,7 +70,7 @@ module Cms
 
       def columns_for_index
         cols = @form.fields.collect do |field|
-          {:label => field.label, :method => field.name, :order => field.name}
+          {:label => field.label, :method => field.name}
         end
         cols
       end

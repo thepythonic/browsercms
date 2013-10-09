@@ -1,7 +1,6 @@
 # Make a Form Builder
 
 * Forms should allow either display a message to the user, or redirect them to another page.
-* Sorting entries doesn't work.
 * Forms should be addressable.
 * Need to figure out where the 'Entries' for a form should appear. (The current 'entries' link won't work when forms live on their own)
 * Can have duplicate field names that creates issues when submitting forms.
@@ -11,7 +10,7 @@
 * Handle errors with validation
 * Formating validation (i.e. email, phone)
 * Captcha?
-
+* Allow sorting/reporting.
 
 ## Issues
 
