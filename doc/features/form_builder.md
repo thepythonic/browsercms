@@ -1,7 +1,7 @@
 # Make a Form Builder
 
-* BUG: Cannot edit the fields on an existing saved form.
-    * Need to put the edit button on there as well.
+* Disable input on the fields in preview.
+* REFACTOR: Remove :sample_field and new_field from the form.
 * BUG: After adding a field, need to reset the drop down to remove the selections.
 * Forms should allow either display a message to the user, or redirect them to another page.
 * Forms should be addressable.
