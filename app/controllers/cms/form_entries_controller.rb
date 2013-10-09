@@ -1,5 +1,5 @@
 module Cms
-  class FormResponsesController < Cms::BaseController
+  class FormEntriesController < Cms::BaseController
 
     helper_method :content_type, :new_block_path
     helper Cms::ContentBlockHelper
@@ -7,49 +7,49 @@ module Cms
     # Same behavior as ContentBlockController#index
     def index
       form = Cms::Form.where(id: params[:id]).first
-      @blocks = Cms::FormResponse.where(form_id: params[:id]).paginate({page: params[:page], order: params[:order]})
+      @blocks = Cms::FormEntry.where(form_id: params[:id]).paginate({page: params[:page], order: params[:order]})
       @content_type = FauxContentType.new(form)
 
       # Shim for buttonbar
-      @entry = Cms::FormResponse.new(form: form)
+      @entry = Cms::FormEntry.new(form: form)
 
       render 'cms/content_block/index'
     end
 
     def edit
-      @entry = Cms::FormResponse.find(params[:id])
+      @entry = Cms::FormEntry.find(params[:id])
     end
 
     def update
-      @entry = Cms::FormResponse.find(params[:id])
-      if @entry.update_attributes(response_params(@entry))
-        redirect_to form_response_path(@entry)
+      @entry = Cms::FormEntry.find(params[:id])
+      if @entry.update_attributes(entry_params(@entry))
+        redirect_to form_entry_path(@entry)
       end
     end
 
     def show
-      @entry = Cms::FormResponse.find(params[:id])
+      @entry = Cms::FormEntry.find(params[:id])
     end
 
     def create
       form = Cms::Form.find(params[:form_id])
-      @form_response = Cms::FormResponse.new(form: form)
-      @form_response.attributes = response_params(@form_response)
-      if @form_response.save!
+      @entry = Cms::FormEntry.new(form: form)
+      @entry.attributes = entry_params(@entry)
+      if @entry.save!
         redirect_to entries_path(form)
       else
         render text: 'Fail'
       end
     end
 
-    def response_params(form_response)
-      params.require(:form_response).permit(form_response.permitted_params)
+    def entry_params(entry)
+      params.require(:form_entry).permit(entry.permitted_params)
     end
 
     protected
 
     def new_block_path(block, options={})
-      cms.new_form_response_path(options)
+      cms.new_form_entry_path(options)
     end
 
 
@@ -57,7 +57,7 @@ module Cms
     class FauxContentType < Cms::ContentType
       def initialize(form)
         @form = form
-        self.name = 'Cms::FormResponse'
+        self.name = 'Cms::FormEntry'
       end
 
       def display_name

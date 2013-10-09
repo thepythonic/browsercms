@@ -213,6 +213,11 @@ ActiveRecord::Schema.define(version: 20131004200959) do
   add_index "cms_file_blocks", ["deleted"], name: "index_cms_file_blocks_on_deleted", using: :btree
   add_index "cms_file_blocks", ["type"], name: "index_cms_file_blocks_on_type", using: :btree
 
+  create_table "cms_form_entries", force: true do |t|
+    t.text    "data_columns"
+    t.integer "form_id"
+  end
+
   create_table "cms_form_fields", force: true do |t|
     t.integer "form_id"
     t.string  "label"
@@ -221,11 +226,6 @@ ActiveRecord::Schema.define(version: 20131004200959) do
     t.boolean "unique"
     t.text    "instructions"
     t.text    "default_value"
-  end
-
-  create_table "cms_form_responses", force: true do |t|
-    t.text    "data_columns"
-    t.integer "form_id"
   end
 
   create_table "cms_form_versions", force: true do |t|

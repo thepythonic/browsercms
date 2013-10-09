@@ -7,7 +7,7 @@ module Cms
     attr_accessor :new_field, :sample_field
 
     has_many :fields, class_name: 'Cms::FormField'
-    has_many :entries, class_name: 'Cms::FormResponse'
+    has_many :entries, class_name: 'Cms::FormEntry'
 
     def field_names
       fields.collect {|f| f.name }

@@ -8,6 +8,7 @@
 
 ## Eventual Goals
 
+* Handle errors with validation
 * Formating validation (i.e. email, phone)
 * Captcha?
 

@@ -4,8 +4,8 @@
   <%=  @content_block.description %>
 </p>
 <%
-    form_response = Cms::FormResponse.new(form: @content_block)
+    entry = Cms::FormEntry.new(form: @content_block)
 %>
-<%= render partial: 'cms/form_responses/form', locals: {model: form_response, url: cms.form_responses_path, form: @content_block} %>
+<%= render partial: 'cms/form_entries/form', locals: {model: entry, url: cms.form_entries_path, form: @content_block} %>
 
 

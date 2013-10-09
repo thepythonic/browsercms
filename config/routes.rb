@@ -65,11 +65,11 @@ Cms::Engine.routes.draw do
 
   content_blocks :html_blocks
   content_blocks :forms
-  resource :form_fields
-  resources :form_responses
+  resources :form_fields
+  resources :form_entries
 
-  # Faux nested resource for forms (not sure if .content_blocks allows for it.)
-  get 'forms/:id/entries' => 'form_responses#index', as: 'entries'
+  # Faux nested resource for forms (not sure if #content_blocks allows for it.)
+  get 'forms/:id/entries' => 'form_entries#index', as: 'entries'
 
   content_blocks :portlets
   post '/portlet/:id/:handler', :to=>"portlet#execute_handler", :as=>"portlet_handler"
