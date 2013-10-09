@@ -1,4 +1,5 @@
 <% use_page_title "Edit Entry" %>
+<%= content_for :button_bar, render(partial: 'buttonbar', locals: {view: :edit}) %>
 <%= render partial: 'cms/form_responses/form',
            locals: {model: @entry,
                     url: cms.form_response_path(@entry)}

@@ -1,13 +1,10 @@
 # Make a Form Builder
 
-* Determine where creating an entry should go
-* Sorting entries
+* Forms should allow either display a message to the user, or redirect them to another page.
+* Sorting entries doesn't work.
 * Forms should be addressable.
 * Need to figure out where the 'Entries' for a form should appear.
-* Entries - Getting them to appear in content library doesn't work.
-    1. Class isn't loaded (I think content_block route might be loading block classes on bootup.
-    2. Navigation isn't working correctly either.
-* Can't edit form entries.
+* Can have duplicate field names that creates issues when submitting forms.
 
 ## Eventual Goals
 
