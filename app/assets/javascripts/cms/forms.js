@@ -19,6 +19,7 @@ FormBuilder.prototype.randomId = function() {
 // Add a new field to the form
 // (Implementation: Clone existing hidden form elements rather than build new ones via HTML).
 FormBuilder.prototype.newField = function(field_type) {
+  this.hideNewFormInstruction();
   var cloned_field = $('.form_sample_field').clone();
   $('#new-form-fields').before(cloned_field);
   var input = cloned_field.find("[data-field-type='" + field_type + "']");
@@ -32,6 +33,12 @@ FormBuilder.prototype.newField = function(field_type) {
   });
 };
 
+FormBuilder.prototype.hideNewFormInstruction = function() {
+  var no_fields = $("#no-field-instructions");
+  if (no_fields.exists()) {
+    no_fields.hide();
+  }
+};
 FormBuilder.prototype.createField = function() {
   var form = $('#new_form_field');
   var data = form.serialize();
@@ -39,8 +46,8 @@ FormBuilder.prototype.createField = function() {
 
   $.post(url, data,
     function(field) {
-      $('#field_ids').val( $('#field_ids').val() + " " + field.id);
-      $('#' +  formBuilder.field_being_editted).find('label').html(field.label);
+      $('#field_ids').val($('#field_ids').val() + " " + field.id);
+      $('#' + formBuilder.field_being_editted).find('label').html(field.label);
     }).fail(function() {
       alert("An error occurred.");
     });
@@ -63,7 +70,4 @@ var formBuilder = new FormBuilder();
 // Register FormBuilder handlers on page load.
 $(function() {
   formBuilder.setup();
-
-  // Start with a single field.
-  formBuilder.newField('text_field');
 });

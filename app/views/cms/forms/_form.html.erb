@@ -1,5 +1,16 @@
-<h3>Fields</h3>
+<h3>Form Settings</h3>
+<%= f.input :name, as: :cms_text_field %>
+<%= f.input :description %>
+<%= hidden_field_tag "field_ids" %>
 
+<h3>Preview</h3>
+<div id="form-preview">
+<% if @block.new_record? %>
+<div id="no-field-instructions">
+  No fields yet! This <b>live preview</b> of your form will show you fields as you add them. Choose a field type below.
+</div>
+<% end %>
+</div>
 <span id="new-form-fields" style="display: none">
   <h4>Sample Fields</h4>
   <%= f.input :sample_field, label: "Untitled", input_html: {data: {field_type: "text_field"}}, disabled: true, readonly: 'readonly' %>
@@ -10,10 +21,6 @@
             collection: [["Text Field", :text_field], ["Text Box", :text_area]],
             input_html: {class: 'add-new-field'}
 %>
-<h3>Form Settings</h3>
-<%= f.input :name, as: :cms_text_field %>
-<%= f.input :description %>
-<%= hidden_field_tag "field_ids" %>
 
 <%# Can't have a form inside a form, so this must go into the head. %>
 <%= content_for :html_head do %>

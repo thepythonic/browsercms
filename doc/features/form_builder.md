@@ -14,8 +14,6 @@
 
 ## Issues
 
-* When creating a form, the name/description should come before the fields.
-* Don't create a field when a form is first created.
 * When editing the field, if you hit enter it creates the field, but renders the JSON result
 * Creating multiple fields: I needs to blank the field form each time.
 
