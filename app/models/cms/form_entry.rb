@@ -1,5 +1,6 @@
 module Cms
   class FormEntry < ActiveRecord::Base
+
     store :data_columns
     belongs_to :form, class_name: 'Cms::Form'
 

@@ -1,7 +1,7 @@
 require "minitest_helper"
 
 describe Cms::FormEntry do
-  let(:response) { Cms::FormEntry.new }
+  let(:entry) { Cms::FormEntry.new }
   let(:contact_form) do
     form = Cms::Form.new
     form.expects(:field_names).returns([:name, :email]).at_least_once
@@ -11,20 +11,20 @@ describe Cms::FormEntry do
   let(:contact_form_entry) { Cms::FormEntry.new(form: contact_form) }
 
   describe '.new' do
-    it "should create a response with no accessors" do
-      response.wont_be_nil
+    it "should create a entry with no accessors" do
+      entry.wont_be_nil
     end
   end
 
   describe '#data_columns' do
     it 'should return nil for unset attributes' do
-      response.data_columns['name'].must_be_nil
+      entry.data_columns['name'].must_be_nil
     end
 
     it 'should allow arbitrary access' do
-      response.data_columns['name'] = 'Stan'
-      response.save!
-      response.reload.data_columns['name'].must_equal 'Stan'
+      entry.data_columns['name'] = 'Stan'
+      entry.save!
+      entry.reload.data_columns['name'].must_equal 'Stan'
     end
 
     it "should not share accessors across forms" do
@@ -43,6 +43,12 @@ describe Cms::FormEntry do
       end
     end
 
+    it "should coerce fields to their proper type" do
+      entry.data_columns[:age] = 1
+      entry.save!
+
+      entry.reload.data_columns[:age].must_be_instance_of Fixnum
+    end
   end
 
   describe '#form' do
@@ -56,7 +62,7 @@ describe Cms::FormEntry do
       contact_form_entry.form.must_equal form
     end
 
-    it "should return a FormResponse that has accessors for the backing form" do
+    it "should return a Formentry that has accessors for the backing form" do
 
       contact_form_entry.name = "Hello"
       contact_form_entry.name.must_equal 'Hello'
