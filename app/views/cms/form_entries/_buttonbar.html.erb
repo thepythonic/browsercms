@@ -1,6 +1,6 @@
 <% view = :index if local_assigns[:view].nil? %>
+<%= menu_button("Back to Entries", cms.entries_path(@entry.form)) unless view == :index %>
 <span class="btn-group pull-left">
-  <%= menu_button("Back to Entries", cms.entries_path(@entry.form)) unless @entry.new_record? %>
   <%= view_content_menu_button(@entry) %>
   <%= edit_content_menu_button(@entry) unless view == :edit %>
 </span>
