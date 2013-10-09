@@ -1,11 +1,15 @@
 # Make a Form Builder
 
+* BUG: Cannot edit the fields on an existing saved form.
+    * Need to put the edit button on there as well.
+* BUG: After adding a field, need to reset the drop down to remove the selections.
 * Forms should allow either display a message to the user, or redirect them to another page.
 * Forms should be addressable.
 * Can have duplicate field names that creates issues when submitting forms.
 
 ## Eventual Goals
 
+* Delete fields
 * Handle errors with validation
 * Formating validation (i.e. email, phone)
 * Captcha?

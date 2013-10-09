@@ -12,5 +12,10 @@ module Cms
     def field_names
       fields.collect {|f| f.name }
     end
+
+    # Provides a sample Entry for the form.
+    def new_entry
+      Cms::Entry.new(form: self)
+    end
   end
 end

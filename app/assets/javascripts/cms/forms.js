@@ -55,14 +55,12 @@ FormBuilder.prototype.createField = function() {
   var form = $('#ajax_form_field');
   var data = form.serialize();
   var url = form.attr('action');
-  console.log("URL to post to is: ", url);
 
   $.post(url, data,
     function(field) {
       $('#field_ids').val($('#field_ids').val() + " " + field.id);
       var editted_field = $('#' + formBuilder.field_being_editted);
       editted_field.find('label').html(field.label);
-//      console.log("Updating to ", field.edit_path, ' on ', editted_field, " which ", editted_field.exists());
       editted_field.find('a').attr('data-edit-path', field.edit_path);
     }).fail(function() {
       alert("An error occurred.");
@@ -87,5 +85,6 @@ var formBuilder = new FormBuilder();
 $(function() {
   formBuilder.setup();
 
-  formBuilder.newField('text_field');
+  // Include a text field to start (For easier testing)
+  // formBuilder.newField('text_field');
 });
