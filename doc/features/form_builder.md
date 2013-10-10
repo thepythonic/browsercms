@@ -1,8 +1,10 @@
 # Make a Form Builder
 
+* Addressable Forms
+    - Need to allow be able to select template for specific forms.
+    - Hide 'Entries' link when not authorized to see it.
 * BUG: After adding a field, it clears but does not correctly show the 'blank' value.
 * Forms should allow either display a message to the user, or redirect them to another page.
-* Forms should be addressable.
 * Can have duplicate field names that creates issues when submitting forms.
 
 ## Eventual Goals

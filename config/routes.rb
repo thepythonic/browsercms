@@ -2,7 +2,6 @@
 # There are other routes that will be added at the root of the site (i.e. /) which can
 #   be found in lib/cms/route_extensions.rb
 Cms::Engine.routes.draw do
-
   get 'fakemap', to: 'section_nodes#fake'
   get '/content/:id/edit', :to=>"content#edit", :as=>'edit_content'
   get '/dashboard', :to=>"dashboard#index", :as=>'dashboard'
@@ -101,5 +100,6 @@ Cms::Engine.routes.draw do
 
   get "/routes", :to => "routes#index", :as=>'routes'
 
+  add_routes_for_addressable_content_blocks
 end
 

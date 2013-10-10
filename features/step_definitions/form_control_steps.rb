@@ -61,7 +61,7 @@ When /^I replace both attachments$/ do
 end
 
 Then /^I should see the new attachments when I view the block$/ do
-  visit inline_cms_product_path(@block)
+  visit inline_product_path(@block)
 
   get_image("img[data-type=photo-1]")
   assert page.has_content?("v1"), "Check the contents of the image to make sure its the correct one."

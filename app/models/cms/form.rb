@@ -2,9 +2,11 @@ module Cms
   class Form < ActiveRecord::Base
     acts_as_content_block
     content_module :forms
+    is_addressable path: '/forms', template: 'default'
 
     has_many :fields, class_name: 'Cms::FormField'
     has_many :entries, class_name: 'Cms::FormEntry'
+
 
     def field_names
       fields.collect {|f| f.name }

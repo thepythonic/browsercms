@@ -83,11 +83,18 @@ module Cms
       require 'cms/configure_simple_form_bootstrap'
     end
 
+    # Needed to ensure routes added to the main app by the Engine are available. (Since engine draws its routes after the main app)
+    # Borrrow from Spree as documenented here: https://github.com/rails/rails/issues/11895
+    config.after_initialize do
+      Rails.application.routes_reloader.reload!
+    end
+
     initializer 'browsercms.add_core_routes', :after => 'action_dispatch.prepare_dispatcher' do |app|
       ActionDispatch::Routing::Mapper.send :include, Cms::RouteExtensions
     end
 
     initializer 'browsercms.add_load_paths', :after => 'action_controller.deprecated_routes' do |app|
+
       ActiveSupport::Dependencies.autoload_paths += %W( #{self.root}/vendor #{self.root}/app/mailers #{self.root}/app/helpers)
       ActiveSupport::Dependencies.autoload_paths += %W( #{self.root}/app/controllers #{self.root}/app/models #{self.root}/app/portlets)
       ActiveSupport::Dependencies.autoload_paths += %W( #{Rails.root}/app/portlets )

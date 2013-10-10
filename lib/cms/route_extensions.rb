@@ -25,6 +25,7 @@ module Cms::RouteExtensions
       send("get", "/#{content_block_name}/:id/version/:version", :to => "#{content_block_name}#version", :as => "version_cms_#{content_block_name}".to_sym)
       send("put", "/#{content_block_name}/:id/revert_to/:version", :to => "#{content_block_name}#revert_to", :as => "revert_to_cms_#{content_block_name}".to_sym)
     end
+
   end
 
   # Adds the routes required for BrowserCMS to function to a routes.rb file. Should be the last route in the file, as
@@ -37,9 +38,9 @@ module Cms::RouteExtensions
   #   end
   #
   def mount_browsercms
+
     mount Cms::Engine => "/cms", :as => "cms"
 
-    add_routes_for_addressable_content_blocks
     add_page_routes_defined_in_database
 
     # Handle 'stock' attachments
@@ -65,14 +66,21 @@ module Cms::RouteExtensions
     classes.each do |klass|
       path = "#{klass.path}/:slug"
       controller_name = klass.name.demodulize.pluralize.underscore
-      get path, to: "cms/#{controller_name}#show_via_slug"
-      route_name = "inline_cms_#{klass.name.demodulize.underscore}"
+
+      # Add route to main application (By doing this here, we ensure all ContentBlock constants have already been load)
+      # Engines don't process their routes until after the main routes are created.
+      Rails.application.routes.prepend do
+        get path, to: "cms/#{controller_name}#show_via_slug"
+      end
+
+      route_name = "inline_#{klass.name.demodulize.underscore}"
       unless route_exists?(route_name)
-        get "cms/#{klass.path}/:id/inline", to: "cms/#{controller_name}#inline", as: route_name
+        Rails.application.routes.prepend do
+          get "cms/#{klass.path}/:id/inline", to: "cms/#{controller_name}#inline", as: route_name
+        end
       end
 
     end
-
   end
 
   # Determine if a named route already exists, since Rails 4 will object if a duplicate named route is defined now.
