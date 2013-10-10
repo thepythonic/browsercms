@@ -3,6 +3,7 @@ class CreateFormFields < ActiveRecord::Migration
     create_table :cms_form_fields do |t|
       t.integer :form_id
       t.string :label
+      t.string :name
       t.string :field_type
       t.boolean :required
       t.boolean :unique

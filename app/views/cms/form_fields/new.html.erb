@@ -1,6 +1,6 @@
 <%= simple_form_for(@field, html: {id: 'ajax_form_field'}) do |f| %>
   <%= f.hidden_field :field_type %>
-  <%= f.input :label %>
+  <%= f.input :label, hint: @field.new_record? ? "" : "Will not change the database name (i.e. '#{@field.name}') for new or existing entries. " %>
   <%= f.input :required %>
   <%= f.input :unique %>
   <%= f.input :instructions, as: :text %>

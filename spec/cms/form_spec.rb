@@ -27,6 +27,7 @@ describe Cms::Form do
       form = Cms::Form.new
       form.fields << Cms::FormField.new(label: 'Name')
       form.fields << Cms::FormField.new(label: 'Email')
+      form.save!
       form.field_names.must_equal [:name, :email]
     end
   end
