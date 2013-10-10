@@ -1,9 +1,11 @@
 # Make a Form Builder
 
-* Need to allow be able to select template for specific forms.
 * Forms should allow either display a message to the user, or redirect them to another page.
+* Make Text Area work.
+* Slug isn't being displayed as editable for forms.
+* Need to allow be able to select template for specific forms.
 * Can have duplicate field names that creates issues when submitting forms.
-* When editing the field, if you hit enter it creates the field, but renders the JSON result
+* Not sure what the effect of being able to change the names of form fields will have.
 
 ## Eventual Goals
 
