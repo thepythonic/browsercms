@@ -1,11 +1,9 @@
 # Make a Form Builder
 
-* Addressable Forms
-    - Need to allow be able to select template for specific forms.
-    - Hide 'Entries' link when not authorized to see it.
-* BUG: After adding a field, it clears but does not correctly show the 'blank' value.
+* Need to allow be able to select template for specific forms.
 * Forms should allow either display a message to the user, or redirect them to another page.
 * Can have duplicate field names that creates issues when submitting forms.
+* When editing the field, if you hit enter it creates the field, but renders the JSON result
 
 ## Eventual Goals
 
@@ -14,11 +12,10 @@
 * Formating validation (i.e. email, phone)
 * Captcha?
 * Allow sorting/reporting.
-* (IA) Need to figure out where the 'Entries' for a form should appear. (The current 'entries' link won't work when forms live on their own)
 
-## Issues
+## Issues to file
 
-* When editing the field, if you hit enter it creates the field, but renders the JSON result
+* BUG: After adding a field, it clears but does not correctly show the 'blank' value.
 
 ## Reference Articles
 
