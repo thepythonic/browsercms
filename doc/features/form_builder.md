@@ -1,8 +1,8 @@
 # Make a Form Builder
 
+* Make Text Areas work.
+* Then pick another input type (Dropdown?)
 * Forms should allow either display a message to the user, or redirect them to another page.
-* Make Text Area work.
-* BUG: Slug isn't being displayed as editable for forms.
 * Need to allow be able to select template for specific forms.
 * Can have duplicate field names that creates issues when submitting forms.
 * Addressable Content BUGS:

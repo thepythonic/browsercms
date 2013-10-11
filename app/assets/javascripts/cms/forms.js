@@ -16,9 +16,17 @@ var FormBuilder = function() {
 // (Implementation: Clone existing hidden form elements rather than build new ones via HTML).
 FormBuilder.prototype.newField = function(field_type) {
   this.hideNewFormInstruction();
-  this.cloneSampleField(field_type);
-  this.enableEditButtons();
-  this.resetAddFieldButton();
+  this.addPreviewFieldToForm(field_type);
+
+};
+
+FormBuilder.prototype.addPreviewFieldToForm = function(field_type){
+  $("#placeHolder").load('/cms/form_fields/preview .control-group', function(){
+    var newField = $("#placeHolder").find('.control-group');
+    newField.insertBefore('#placeHolder');
+    formBuilder.enableEditButtons();
+    formBuilder.resetAddFieldButton();
+  });
 };
 
 FormBuilder.prototype.resetAddFieldButton = function() {
@@ -88,11 +96,6 @@ FormBuilder.prototype.createField = function() {
 
 };
 
-//FormBuilder.prototype.handleEnter = function(event) {
-//  if (event.which == 13) {
-//    alert('You pressed enter!');
-//  }
-//};
 // Attaches behavior to the proper element.
 FormBuilder.prototype.setup = function() {
   var select_box = $('.add-new-field');

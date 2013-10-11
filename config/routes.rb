@@ -64,7 +64,11 @@ Cms::Engine.routes.draw do
 
   content_blocks :html_blocks
   content_blocks :forms
-  resources :form_fields
+  resources :form_fields do
+    collection do
+      get :preview
+    end
+  end
   resources :form_entries
 
   # Faux nested resource for forms (not sure if #content_blocks allows for it.)

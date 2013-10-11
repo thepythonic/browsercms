@@ -7,6 +7,10 @@ module Cms
       @field = Cms::FormField.new(label: 'Untitled', field_type: 'text_field')
     end
 
+    def preview
+      @form = Cms::Form.new
+    end
+
     def create
       field = FormField.new(form_field_params)
       if field.save
