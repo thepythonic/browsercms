@@ -12,6 +12,10 @@ module Cms
       fields.collect {|f| f.name }
     end
 
+    def show_text?
+      confirmation_behavior.to_sym == :show_text
+    end
+
     # Provides a sample Entry for the form.
     # This allows us to use SimpleForm to layout out elements but ignore the input when the form submits.
     def new_entry

@@ -1,14 +1,18 @@
 # Make a Form Builder
 
+Monday: Make the submit action:
+    - Use the same page title and section as the form itself. (Should BE the same as the form page)
+* Redirecting to another page should blow away the top from when logged in.
+
 * Then pick another input type (Dropdown?)  [Add subclasses?]
-* Forms should allow either display a message to the user, or redirect them to another page.
 * Need to allow be able to select template for specific forms.
 * Can have duplicate field names that creates issues when submitting forms.
 * Addressable Content BUGS:
-    * Bootstrap styling isn't available in pages.
     * Submitting form within frame creates nested frames.
 * Getting duplicate form fields when creating forms on occasion. (Enter twice?)
 * Need sample forms css for the front end viewing of pages (bootstrap styles)
+* Forms do not appear in menus
+* Form entries cannot be submitted by public users.
 
 ## Eventual Goals
 
@@ -17,10 +21,22 @@
 * Formating validation (i.e. email, phone)
 * Captcha?
 * Allow sorting/reporting.
+* [MINOR] Unique icon for forms (i.e. custom) for sitemap
 
 ## Issues to file
 
 * BUG: After adding a field, it clears but does not correctly show the 'blank' value.
+
+
+## Introducing Underscore
+
+Does the following work?
+
+_(FormBuilder.prototype).extend({
+    method: function(){
+      // Do whatever
+    }
+});
 
 ## Reference Articles
 

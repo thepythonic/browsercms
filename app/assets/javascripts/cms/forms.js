@@ -20,8 +20,8 @@ FormBuilder.prototype.newField = function(field_type) {
 
 };
 
-FormBuilder.prototype.addPreviewFieldToForm = function(field_type){
-  $("#placeHolder").load('/cms/form_fields/preview?field_type=' + field_type +' .control-group', function(){
+FormBuilder.prototype.addPreviewFieldToForm = function(field_type) {
+  $("#placeHolder").load('/cms/form_fields/preview?field_type=' + field_type + ' .control-group', function() {
     var newField = $("#placeHolder").find('.control-group');
     newField.insertBefore('#placeHolder');
     formBuilder.enableEditButtons();
@@ -106,8 +106,22 @@ FormBuilder.prototype.setup = function() {
 
     this.enableEditButtons();
     $("#create_field").on('click', formBuilder.createField);
-//    this.new_field_form().keypress(formBuilder.handleEnter);
+
+    this.setupConfirmationBehavior();
   }
+};
+
+FormBuilder.prototype.setupConfirmationBehavior = function() {
+  // Confirmation Behavior
+  $("#form_confirmation_behavior_show_text").on('click', function() {
+    $(".form_confirmation_text").show();
+    $(".form_confirmation_redirect").hide();
+  });
+  $("#form_confirmation_behavior_redirect").on('click', function() {
+    $(".form_confirmation_redirect").show();
+    $(".form_confirmation_text").hide();
+  });
+  $("#form_confirmation_behavior_show_text").trigger('click');
 };
 var formBuilder = new FormBuilder();
 

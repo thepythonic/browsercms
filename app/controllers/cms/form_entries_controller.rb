@@ -4,6 +4,21 @@ module Cms
     helper_method :content_type, :new_block_path
     helper Cms::ContentBlockHelper
 
+    # Handles public submission of a form.
+    def submit
+      find_form_and_populate_entry
+      if @entry.save!
+        if @form.show_text?
+
+          render layout: Cms::Form.layout
+        else
+          redirect_to @form.confirmation_redirect
+        end
+      else
+        save_entry_failure
+      end
+    end
+
     # Same behavior as ContentBlockController#index
     def index
       form = Cms::Form.where(id: params[:id]).first
@@ -36,18 +51,16 @@ module Cms
     end
 
     def create
-      form = Cms::Form.find(params[:form_id])
-      @entry = Cms::FormEntry.new(form: form)
-      @entry.attributes = entry_params(@entry)
+      find_form_and_populate_entry
       if @entry.save!
         redirect_to entries_path(form)
       else
-        render text: 'Fail'
+        save_entry_failure
       end
     end
 
-    def entry_params(entry)
-      params.require(:form_entry).permit(entry.permitted_params)
+    def save_entry_failure
+      render text: 'Fail'
     end
 
     protected
@@ -56,6 +69,15 @@ module Cms
       cms.new_form_entry_path(options)
     end
 
+    def find_form_and_populate_entry
+      @form = Cms::Form.find(params[:form_id])
+      @entry = Cms::FormEntry.new(form: @form)
+      @entry.attributes = entry_params(@entry)
+    end
+
+    def entry_params(entry)
+      params.require(:form_entry).permit(entry.permitted_params)
+    end
 
     # Allows Entries to be displayed using same view as Content Blocks.
     class FauxContentType < Cms::ContentType

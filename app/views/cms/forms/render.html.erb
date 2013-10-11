@@ -5,6 +5,6 @@
 <%
     entry = Cms::FormEntry.new(form: @content_block)
 %>
-<%= render partial: 'cms/form_entries/form', locals: {model: entry, url: cms.form_entries_path, form: @content_block} %>
+<%= render partial: 'cms/form_entries/form', locals: {model: entry, url: cms.submit_form_entry_path, form: @content_block} %>
 
 

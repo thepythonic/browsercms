@@ -232,13 +232,16 @@ ActiveRecord::Schema.define(version: 20131004200959) do
   create_table "cms_form_versions", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.string   "confirmation_behavior"
+    t.text     "confirmation_text"
+    t.string   "confirmation_redirect"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "original_record_id"
     t.integer  "version"
-    t.boolean  "published",          default: false
-    t.boolean  "deleted",            default: false
-    t.boolean  "archived",           default: false
+    t.boolean  "published",             default: false
+    t.boolean  "deleted",               default: false
+    t.boolean  "archived",              default: false
     t.string   "version_comment"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
@@ -247,13 +250,16 @@ ActiveRecord::Schema.define(version: 20131004200959) do
   create_table "cms_forms", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.string   "confirmation_behavior"
+    t.text     "confirmation_text"
+    t.string   "confirmation_redirect"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "version"
-    t.integer  "lock_version",  default: 0
-    t.boolean  "published",     default: false
-    t.boolean  "deleted",       default: false
-    t.boolean  "archived",      default: false
+    t.integer  "lock_version",          default: 0
+    t.boolean  "published",             default: false
+    t.boolean  "deleted",               default: false
+    t.boolean  "archived",              default: false
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
   end

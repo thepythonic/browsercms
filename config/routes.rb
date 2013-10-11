@@ -69,7 +69,11 @@ Cms::Engine.routes.draw do
       get :preview
     end
   end
-  resources :form_entries
+  resources :form_entries do
+    member do
+      post :submit
+    end
+  end
 
   # Faux nested resource for forms (not sure if #content_blocks allows for it.)
   get 'forms/:id/entries' => 'form_entries#index', as: 'entries'

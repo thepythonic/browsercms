@@ -11,6 +11,14 @@ describe Cms::Form do
     end
   end
 
+  describe '.show_text?' do
+    it "should return true with the :show_text confirmation behavior" do
+      form.confirmation_behavior = :show_text
+      form.save!
+      form.reload.show_text?.must_equal true
+    end
+  end
+
   describe '#fields' do
     it "should save a list of fields" do
       field = Cms::FormField.new(label: "Event Name", field_type: :string)

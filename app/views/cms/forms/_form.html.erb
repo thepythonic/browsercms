@@ -2,6 +2,11 @@
 <%= f.input :name, as: :cms_text_field %>
 <%= f.input :description %>
 <%= hidden_field_tag "field_ids", @block.field_ids %>
+<%= f.input :confirmation_behavior, label: "On Confirmation",
+            collection: [["Show Text", :show_text], ['Redirect to Website', :redirect]],
+            as: :radio_buttons %>
+<%= f.input :confirmation_text, label: false %>
+<%= f.input :confirmation_redirect, label: false, hint: "A complete URL (i.e. http://www.yoursite.com/registration) or relative path (/thanks-for-registering)." %>
 
 <h3> Preview</h3>
 <div id="form-preview">
