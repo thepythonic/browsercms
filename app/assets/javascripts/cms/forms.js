@@ -21,7 +21,7 @@ FormBuilder.prototype.newField = function(field_type) {
 };
 
 FormBuilder.prototype.addPreviewFieldToForm = function(field_type){
-  $("#placeHolder").load('/cms/form_fields/preview .control-group', function(){
+  $("#placeHolder").load('/cms/form_fields/preview?field_type=' + field_type +' .control-group', function(){
     var newField = $("#placeHolder").find('.control-group');
     newField.insertBefore('#placeHolder');
     formBuilder.enableEditButtons();

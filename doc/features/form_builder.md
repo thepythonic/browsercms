@@ -1,13 +1,14 @@
 # Make a Form Builder
 
-* Make Text Areas work.
-* Then pick another input type (Dropdown?)
+* Then pick another input type (Dropdown?)  [Add subclasses?]
 * Forms should allow either display a message to the user, or redirect them to another page.
 * Need to allow be able to select template for specific forms.
 * Can have duplicate field names that creates issues when submitting forms.
 * Addressable Content BUGS:
     * Bootstrap styling isn't available in pages.
     * Submitting form within frame creates nested frames.
+* Getting duplicate form fields when creating forms on occasion. (Enter twice?)
+* Need sample forms css for the front end viewing of pages (bootstrap styles)
 
 ## Eventual Goals
 

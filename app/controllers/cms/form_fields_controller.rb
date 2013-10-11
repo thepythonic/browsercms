@@ -4,11 +4,12 @@ module Cms
     layout false
 
     def new
-      @field = Cms::FormField.new(label: 'Untitled', field_type: 'text_field')
+      @field = Cms::FormField.new(label: 'Untitled', field_type: params[:field_type])
     end
 
     def preview
       @form = Cms::Form.new
+      @field = Cms::FormField.new(label: 'Untitled', name: :untitled, field_type: params[:field_type])
     end
 
     def create

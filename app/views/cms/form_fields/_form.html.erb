@@ -1,7 +1,7 @@
-<%= f.input name,
-            label: label,
+<%= f.input field.name,
+            label: field.label,
             wrapper: :append do
-  h = f.input_field name, disabled: true, readonly: 'readonly'
+  h = f.input_field field.name, field.options(disabled: true)
   h << link_to("Edit", "#", data: {edit_path: edit_path}, class: "btn edit_form_button")
   h
 end %>

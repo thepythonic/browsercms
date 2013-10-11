@@ -1,6 +1,6 @@
 <%= simple_form_for(@form) do |f| %>
     <%= f.simple_fields_for :new_entry do |e| %>
         <%= render partial: 'cms/form_fields/form',
-                   locals: {f: e, name: :sample_field, label: "Untitled", edit_path: new_form_field_path } %>
+                   locals: {f: e, field: @field, edit_path: new_form_field_path(field_type: @field.field_type) } %>
     <% end %>
 <% end %>

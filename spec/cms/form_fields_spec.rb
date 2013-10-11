@@ -25,6 +25,34 @@ describe Cms::FormField do
     end
   end
 
+  describe "#options" do
+    it "can disable the input" do
+      field = Cms::FormField.new(label: 'A Title', field_type: 'text_field')
+      field.options(disabled: true).must_equal({label: 'A Title', disabled: true, readonly: 'readonly'})
+    end
+    it "should provide as: for default cases" do
+      field = Cms::FormField.new(label: 'A Title', field_type: 'text_field')
+      field.options.must_equal({label: 'A Title'})
+    end
+
+    it "should provide as: for special cases" do
+      field = Cms::FormField.new(label: 'A Title', field_type: 'text_area')
+      field.options.must_equal({label: 'A Title', as: :text})
+    end
+  end
+
+  describe "#as" do
+    it "should handle text_fields" do
+      field = Cms::FormField.new(field_type: 'text_field')
+      field.as.must_equal :string
+    end
+
+    it "should handle text_areas" do
+      field = Cms::FormField.new(field_type: 'text_area')
+      field.as.must_equal :text
+    end
+  end
+
   describe "#as_json" do
     let(:field) { Cms::FormField.new(label: 'Name') }
     it "should include #edit_path when being serialized" do
