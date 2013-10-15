@@ -1,15 +1,18 @@
 module Cms
   class FormEntriesController < Cms::BaseController
 
+    include ContentRenderingSupport
+
     helper_method :content_type, :new_block_path
     helper Cms::ContentBlockHelper
+
 
     # Handles public submission of a form.
     def submit
       find_form_and_populate_entry
       if @entry.save!
         if @form.show_text?
-
+          show_content_as_page(@form)
           render layout: Cms::Form.layout
         else
           redirect_to @form.confirmation_redirect

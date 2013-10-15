@@ -70,7 +70,7 @@ Cms::Engine.routes.draw do
     end
   end
   resources :form_entries do
-    member do
+    collection do
       post :submit
     end
   end

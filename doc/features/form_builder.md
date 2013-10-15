@@ -1,14 +1,8 @@
 # Make a Form Builder
 
-Monday: Make the submit action:
-    - Use the same page title and section as the form itself. (Should BE the same as the form page)
-* Redirecting to another page should blow away the top from when logged in.
-
 * Then pick another input type (Dropdown?)  [Add subclasses?]
 * Need to allow be able to select template for specific forms.
 * Can have duplicate field names that creates issues when submitting forms.
-* Addressable Content BUGS:
-    * Submitting form within frame creates nested frames.
 * Getting duplicate form fields when creating forms on occasion. (Enter twice?)
 * Need sample forms css for the front end viewing of pages (bootstrap styles)
 * Forms do not appear in menus
@@ -22,6 +16,7 @@ Monday: Make the submit action:
 * Captcha?
 * Allow sorting/reporting.
 * [MINOR] Unique icon for forms (i.e. custom) for sitemap
+* Submitting form within frame creates nested frames (for errors?)
 
 ## Issues to file
 

@@ -330,8 +330,7 @@ module Cms
 
     def render_block_in_main_container
       ensure_current_user_can_view(@block)
-      @page = @block # page templates expect a @page attribute
-      @content_block = @block # render.html.erb's expect a @content_block attribute
+      show_content_as_page(@block)
       render 'render_block_in_main_container', layout: @block.class.layout
     end
 
