@@ -81,6 +81,10 @@ module Cms
 
       require 'cms/configure_simple_form'
       require 'cms/configure_simple_form_bootstrap'
+
+      # Sets the default .css file that will be added to forms created via the Forms module.
+      # Projects can override this as needed.
+      app.config.cms.form_builder_css = 'cms/default-forms'
     end
 
     # Needed to ensure routes added to the main app by the Engine are available. (Since engine draws its routes after the main app)

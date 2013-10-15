@@ -4,7 +4,6 @@
 * Need to allow be able to select template for specific forms.
 * Can have duplicate field names that creates issues when submitting forms.
 * Getting duplicate form fields when creating forms on occasion. (Enter twice?)
-* Need sample forms css for the front end viewing of pages (bootstrap styles)
 * Forms do not appear in menus
 
 ## Eventual Goals
@@ -20,6 +19,7 @@
 
 ## Issues to file
 
+* [Developers] Default Forms just uses bootstrap, which is probably not a valid option. Need a way to pare it down to avoid changing styles for existing designes.
 * BUG: After adding a field, it clears but does not correctly show the 'blank' value.
 
 
@@ -32,6 +32,18 @@ _(FormBuilder.prototype).extend({
       // Do whatever
     }
 });
+
+
+## Documentation
+
+### Configuration
+
+In config/application.rb, to change which CSS stylesheet is applied to Form pages, update the following:
+
+```
+ # Default is 'cms/default-forms'
+ config.cms.form_builder_css = 'my-forms' # Returns /assets/my-forms.css
+```
 
 ## Reference Articles
 

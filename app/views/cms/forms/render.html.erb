@@ -1,3 +1,6 @@
+<% content_for :html_head do  %>
+<%=  stylesheet_link_tag Rails.application.config.cms.form_builder_css %>
+<% end %>
 <h1><%= @content_block.name%></h1>
 <p>
   <%=  @content_block.description %>
