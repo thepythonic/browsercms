@@ -6,10 +6,10 @@
 * Getting duplicate form fields when creating forms on occasion. (Enter twice?)
 * Need sample forms css for the front end viewing of pages (bootstrap styles)
 * Forms do not appear in menus
-* Form entries cannot be submitted by public users.
 
 ## Eventual Goals
 
+* URL for form submissions could be improved.
 * Delete fields
 * Handle errors with validation
 * Formating validation (i.e. email, phone)

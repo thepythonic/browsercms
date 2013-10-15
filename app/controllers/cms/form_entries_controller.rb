@@ -6,6 +6,7 @@ module Cms
     helper_method :content_type, :new_block_path
     helper Cms::ContentBlockHelper
 
+    allow_guests_to [:submit]
 
     # Handles public submission of a form.
     def submit

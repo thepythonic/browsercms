@@ -6,9 +6,8 @@ module Cms
     include Cms::ContentRenderingSupport
 
     layout 'cms/content_library'
-    skip_filter :cms_access_required, :login_required
-    before_filter :login_required, except: [:show_via_slug]
-    before_filter :cms_access_required, except: [:show_via_slug]
+
+    allow_guests_to [:show_via_slug]
     before_filter :set_toolbar_tab
 
     helper_method :block_form, :new_block_path, :block_path, :blocks_path, :content_type
