@@ -8,8 +8,20 @@ module Cms
     has_many :entries, class_name: 'Cms::FormEntry'
 
 
+    # Copy any field related errors into the model :base so they get displayed at the top of the form.
+    after_validation do
+      unless errors[:fields].empty?
+        fields.each do |field|
+          field.errors.each do |attribute, error|
+            errors[:base] << field.errors.full_message(attribute, error)
+          end
+
+        end
+      end
+    end
+
     def field_names
-      fields.collect {|f| f.name }
+      fields.collect { |f| f.name }
     end
 
     def show_text?

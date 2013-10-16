@@ -6,7 +6,6 @@ class CreateForms < ActiveRecord::Migration
       t.string :confirmation_behavior
       t.text :confirmation_text
       t.string :confirmation_redirect
-      t.timestamps
     end
   end
 end

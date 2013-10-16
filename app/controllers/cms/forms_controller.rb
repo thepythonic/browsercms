@@ -3,6 +3,11 @@ class Cms::FormsController < Cms::ContentBlockController
   before_filter :associate_form_fields, only: [:create, :update]
   before_filter :strip_new_entry_params, only: [:create, :update]
 
+  def new
+    super
+    @block.save!
+  end
+
   protected
 
   # Split the space separated list of ids into an actual array of ids.

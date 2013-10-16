@@ -28,6 +28,14 @@ describe Cms::Form do
       form.reload.fields.size.must_equal 1
       field.persisted?.must_equal true
     end
+
+    it "should set error on :base when there are duplicate fields" do
+      form.fields << Cms::FormField.create(label: 'Name')
+      form.fields << Cms::FormField.new(label: 'Name')
+      form.valid?.must_equal false
+      form.errors[:base].size.must_equal 1
+      form.errors[:base].must_include "Labels can only be used once per form."
+    end
   end
 
   describe '#field_names' do

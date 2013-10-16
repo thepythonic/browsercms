@@ -1,15 +1,17 @@
 # Make a Form Builder
 
+* BUG: When creating a new form (because its technically being 'editted') there is no autoslug generation.
+* Style for errors :base should not be applied to inline styles.
 * Then pick another input type (Dropdown?)  [Add subclasses?]
 * Need to allow be able to select template for specific forms.
-* Can have duplicate field names that creates issues when submitting forms.
-* Getting duplicate form fields when creating forms on occasion. (Enter twice?)
-* Forms do not appear in menus
+* Getting duplicate form fields when creating forms on occasion. Second and subsequent forms when hitting "Enter" submits multiples (probably need to deregister handlers)
+* Need a way to clean up new forms that created during 'new' operation. (Leave page JS popup?)
 
 ## Eventual Goals
 
 * URL for form submissions could be improved.
 * Delete fields
+* Fields ordering needs work arbitrary (Address, Name) (might be arbitrary)
 * Handle errors with validation
 * Formating validation (i.e. email, phone)
 * Captcha?
@@ -21,18 +23,7 @@
 
 * [Developers] Default Forms just uses bootstrap, which is probably not a valid option. Need a way to pare it down to avoid changing styles for existing designes.
 * BUG: After adding a field, it clears but does not correctly show the 'blank' value.
-
-
-## Introducing Underscore
-
-Does the following work?
-
-_(FormBuilder.prototype).extend({
-    method: function(){
-      // Do whatever
-    }
-});
-
+* BUG: Addressable content types (product, forms, etc) do not/cannot appear in menus without manually creating a link.
 
 ## Documentation
 

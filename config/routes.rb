@@ -64,11 +64,9 @@ Cms::Engine.routes.draw do
 
   content_blocks :html_blocks
   content_blocks :forms
-  resources :form_fields do
-    collection do
-      get :preview
-    end
-  end
+  resources :form_fields
+  get "/forms/:id/fields/preview" => 'form_fields#preview', as: 'preview_form_field'
+
   resources :form_entries do
     collection do
       post :submit

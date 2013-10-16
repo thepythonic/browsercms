@@ -21,7 +21,7 @@ FormBuilder.prototype.newField = function(field_type) {
 };
 
 FormBuilder.prototype.addPreviewFieldToForm = function(field_type) {
-  $("#placeHolder").load('/cms/form_fields/preview?field_type=' + field_type + ' .control-group', function() {
+  $("#placeHolder").load($('#placeHolder').data('new-path') + '?field_type=' + field_type + ' .control-group', function() {
     var newField = $("#placeHolder").find('.control-group');
     newField.insertBefore('#placeHolder');
     formBuilder.enableEditButtons();
@@ -31,14 +31,6 @@ FormBuilder.prototype.addPreviewFieldToForm = function(field_type) {
 
 FormBuilder.prototype.resetAddFieldButton = function() {
   $("#form_new_entry_new_field").val('1');
-};
-
-FormBuilder.prototype.cloneSampleField = function(field_type) {
-  var sample_field_class = 'form_new_entry_sample_field';
-  var cloned_field = $('.' + sample_field_class).clone();
-  $('#new-form-fields').before(cloned_field);
-  var input = cloned_field.find("[data-field-type='" + field_type + "']");
-  cloned_field.removeClass(sample_field_class);
 };
 
 // Function that triggers when users click the 'Edit' field button.
@@ -87,13 +79,30 @@ FormBuilder.prototype.createField = function() {
 
   $.post(url, data,
     function(field) {
+      formBuilder.clearFieldErrorsOnCurrentField();
+
       $('#field_ids').val($('#field_ids').val() + " " + field.id);
       formBuilder.field_being_editted.find('label').html(field.label);
       formBuilder.field_being_editted.find('a').attr('data-edit-path', field.edit_path);
-    }).fail(function() {
-      alert("An error occurred.");
+
+    }).fail(function(xhr, textStatus, errorThrown) {
+      formBuilder.displayErrorOnField(formBuilder.field_being_editted, xhr.responseJSON);
     });
 
+};
+
+FormBuilder.prototype.clearFieldErrorsOnCurrentField = function(){
+  var field = formBuilder.field_being_editted;
+  field.removeClass("error");
+  field.find('.help-inline').remove();
+};
+
+FormBuilder.prototype.displayErrorOnField = function(field, json) {
+  var error_message = json.errors[0];
+  console.log(error_message);
+  field.addClass("error");
+  var input_field = field.find('.input-append');
+  input_field.after('<span class="help-inline">' + error_message + '</span>');
 };
 
 // Attaches behavior to the proper element.
@@ -131,5 +140,5 @@ $(function() {
 
 
   // Include a text field to start (For easier testing)
-  // formBuilder.newField('text_field');
+  formBuilder.newField('text_field');
 });

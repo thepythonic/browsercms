@@ -9,6 +9,10 @@ class CreateFormFields < ActiveRecord::Migration
       t.boolean :unique
       t.text :instructions
       t.text :default_value
+      t.timestamps
     end
+
+    # Field names should be unique per form
+    add_index :cms_form_fields, [:form_id, :name], :unique => true
   end
 end

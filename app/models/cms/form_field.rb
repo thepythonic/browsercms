@@ -2,12 +2,24 @@ module Cms
   class FormField < ActiveRecord::Base
     extend DefaultAccessible
 
+    belongs_to :form
+
     attr_accessor :edit_path
-    before_create :assign_field_name
+
+    # Name is assigned when the Field is created, and should not be changed afterwords.
+    # Otherwise existing entries will not display their data correctly.
+    #
+    # FormField#name is used for input fields. I.e. <%= f.input field.name %>
+    before_validation(on: :create) do
+      self.name = label.parameterize.underscore.to_sym if label
+    end
+
+    validates :name, :uniqueness => {:scope => :form_id, message: "can only be used once per form."}
 
     def as_json(options={})
       super(:methods => [:edit_path])
     end
+
 
     # Return the form widget that should be used to render this field.
     #
@@ -37,14 +49,6 @@ module Cms
         opts[:readonly] = 'readonly'
       end
       opts
-    end
-
-    # Name is assigned when the Field is created, and should not be changed afterwords.
-    # Otherwise existing entries will not display their data correctly.
-    #
-    # FormField#name is used for input fields. I.e. <%= f.input field.name %>
-    def assign_field_name
-      self.name = label.parameterize.underscore.to_sym
     end
 
     # Don't allow name to be set via UI.

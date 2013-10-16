@@ -96,3 +96,9 @@ textarea,
 #asset_add_uploader {
   display: none;
 }
+
+// simpleform f.error generates this class for model wide attributes.
+.help-inline {
+  @extend .alert-error;
+  @extend .alert;
+}

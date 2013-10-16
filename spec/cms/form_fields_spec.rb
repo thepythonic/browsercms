@@ -1,9 +1,31 @@
 require "minitest_helper"
 
 describe Cms::FormField do
+
   describe '.permitted_params' do
     it 'should return an array of fields' do
       Cms::FormField.permitted_params.must_equal [:form_id, :label, :field_type, :required, :unique, :instructions, :default_value]
+    end
+  end
+
+  describe '#form' do
+    it "should be belongs_to" do
+      form = Cms::Form.create!(name: "Testing")
+      field = Cms::FormField.new(label: "Name")
+      field.form = form
+      field.save!
+      field.form.wont_be_nil
+
+      field.form_id.must_equal field.form.id
+    end
+
+    it "should trigger validation with duplicate anames" do
+      form = Cms::Form.create!(name: "Testing")
+      field = Cms::FormField.new(label: "Name", form_id: form.id)
+      field.save.must_equal true
+
+      duplicate_field = Cms::FormField.new(label: "Name", form_id: form.id)
+      duplicate_field.save.must_equal false
     end
   end
 
@@ -23,6 +45,8 @@ describe Cms::FormField do
       field.update(label: 'Full Name')
       field.name.must_equal :name
     end
+
+
   end
 
   describe "#options" do

@@ -22,7 +22,7 @@
                      locals: {f: e, field: field, edit_path: edit_form_field_path(field.id) } %>
       <% end %>
   <% end %>
-  <span id="placeHolder"></span>
+  <span id="placeHolder" data-new-path="<%= preview_form_field_path(@block)%>"></span>
 </div>
 
 <%= f.simple_fields_for :new_entry do |e| %>
