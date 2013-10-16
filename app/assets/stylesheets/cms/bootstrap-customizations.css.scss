@@ -98,7 +98,7 @@ textarea,
 }
 
 // simpleform f.error generates this class for model wide attributes.
-.help-inline {
+#base-errors .help-inline {
   @extend .alert-error;
   @extend .alert;
 }

@@ -1,7 +1,6 @@
 # Make a Form Builder
 
 * BUG: When creating a new form (because its technically being 'editted') there is no autoslug generation.
-* Style for errors :base should not be applied to inline styles.
 * Then pick another input type (Dropdown?)  [Add subclasses?]
 * Need to allow be able to select template for specific forms.
 * Getting duplicate form fields when creating forms on occasion. Second and subsequent forms when hitting "Enter" submits multiples (probably need to deregister handlers)
