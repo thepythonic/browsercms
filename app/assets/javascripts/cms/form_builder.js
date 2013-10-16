@@ -44,7 +44,7 @@ FormBuilder.prototype.editFormField = function() {
 
   // Handle Enter by submitting the form via AJAX.
   $('#modal-edit-field').on('shown', function() {
-    formBuilder.new_field_form().on("keypress", function(e) {
+    formBuilder.newFormField().on("keypress", function(e) {
       if (e.which == 13) {
         formBuilder.createField();
         e.preventDefault();
@@ -66,14 +66,16 @@ FormBuilder.prototype.hideNewFormInstruction = function() {
 
 // Add handler to any edit field buttons.
 FormBuilder.prototype.enableEditButtons = function() {
-  $('.edit_form_button').on('click', formBuilder.editFormField);
+  $('.edit_form_button').unbind('click').on('click', formBuilder.editFormField);
 };
 
-FormBuilder.prototype.new_field_form = function() {
+FormBuilder.prototype.newFormField = function() {
   return $('#ajax_form_field');
 };
+
+// Save a new Field to the database for the current form.
 FormBuilder.prototype.createField = function() {
-  var form = formBuilder.new_field_form();
+  var form = formBuilder.newFormField();
   var data = form.serialize();
   var url = form.attr('action');
 
