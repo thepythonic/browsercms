@@ -7,9 +7,13 @@ end
 class CouldBeAddressable < ActiveRecord::Base;
 end
 
+# Mimics Attachments
+class ManuallySetPath < ActiveRecord::Base
+  is_addressable
+end
+
 class HasSelfDefinedPath < ActiveRecord::Base
   is_addressable(no_dynamic_path: true)
- #attr_accessible :path
 end
 
 class IsAddressable < ActiveRecord::Base;
@@ -34,6 +38,10 @@ describe Cms::Concerns::Addressable do
       t.string :name
     end
     create_testing_table :another_addressables
+    create_testing_table :manually_set_paths do |t|
+      t.string :name
+      t.string :path
+    end
     create_testing_table :has_self_defined_paths do |t|
       t.string :path
     end
@@ -43,6 +51,7 @@ describe Cms::Concerns::Addressable do
   describe '#is_addressable' do
     it "should have parent relationship" do
       WannabeAddressable.expects(:has_one)
+      WannabeAddressable.expects(:after_save)
       WannabeAddressable.is_addressable
       WannabeAddressable.new.must_respond_to :parent
     end
@@ -153,6 +162,13 @@ describe Cms::Concerns::Addressable do
     end
   end
 
+  describe "#update" do
+    let(:saved_content) { IsAddressable.create! name: "Test" }
+    it "should autosave changes to section_node" do
+      saved_content.update(slug: "/change")
+      saved_content.reload.section_node.slug.must_equal "/change"
+    end
+  end
   describe "#create" do
     it "should allow for both parent and slug to be saved" do
       f = IsAddressable.create!(parent_id: root_section.id, slug: "slug")
@@ -168,6 +184,41 @@ describe Cms::Concerns::Addressable do
     it "should allow for both parent and slug to be saved in any order" do
       f = IsAddressable.create(slug: "slug", parent_id: root_section.id)
       f.section_node.slug.must_equal "slug"
+    end
+
+    describe "without assigning parent" do
+
+      it "should create parent section if it doesn't exist'" do
+        find_or_create_root_section
+        content = IsAddressable.create! name: 'Hello'
+        content.section_node.wont_be_nil
+      end
+
+      it "should create new section (with no parent) if root doesn't existing'" do
+        content = IsAddressable.create! name: 'Hello'
+        content.section_node.wont_be_nil
+        content.parent.parent.must_be_nil
+        content.parent.root?.must_equal false
+      end
+    end
+
+    describe "with a manully set path" do
+      it "should assign a parent if the class doesn't define a default path" do
+        content = ManuallySetPath.create! path: "/must-be-set", parent: root_section
+        content.parent.must_equal root_section
+      end
+
+      it "should not create a parent if the class doesn't define a default path" do
+        content = ManuallySetPath.create! path: "/must-be-set"
+        content.parent.must_be_nil
+      end
+    end
+  end
+
+  describe "#parent_id" do
+    it "should return parent id" do
+      addressable.parent = root_section
+      addressable.parent_id.must_equal root_section.id
     end
   end
 
@@ -197,12 +248,4 @@ describe Cms::Concerns::Addressable do
     end
   end
 
-  describe "#ancestors" do
-    describe "without a parent" do
-      it "should have no ancestors" do
-        content = IsAddressable.create
-        content.ancestors.must_equal []
-      end
-    end
-  end
 end

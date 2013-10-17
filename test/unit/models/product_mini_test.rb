@@ -6,5 +6,6 @@ describe Product do
       p = FactoryGirl.create(:product)
       p.wont_be_nil
     end
+
   end
 end

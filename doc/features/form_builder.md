@@ -1,5 +1,8 @@
 # Make a Form Builder
 
+* If only change to a Form is the slug, it will not save due to it not requiring a version change.
+
+* BUG: New portlets/products/catalogs don't work (removed block_path)
 * BUG: When creating a new form (because its technically being 'editted') there is no autoslug generation.
 * Then pick another input type (Dropdown?)  [Add subclasses?]
 * Need to allow be able to select template for specific forms.

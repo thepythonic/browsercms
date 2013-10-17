@@ -20,6 +20,13 @@ module Cms
 
         has_one :section_node, has_one_options
 
+        # For reasons that aren't clear, just using :autosave doesn't work.
+        after_save do
+          if section_node && section_node.changed?
+            section_node.save
+          end
+        end
+
         include Cms::Concerns::Addressable
         extend Cms::Concerns::Addressable::ClassMethods
         include Cms::Concerns::Addressable::NodeAccessors
@@ -47,9 +54,13 @@ module Cms
       end
     end
 
-    # Implements behavior for displaying content blocks that should appear in the
-    # sitemap (as opposed to pages/sections/links)
+    # Implements behavior for displaying content blocks that should appear in the sitemap.
+    #
     module GenericSitemapBehavior
+      def self.included(klass)
+        klass.before_validation :assign_parent_if_needed
+      end
+
       def partial_for
         "addressable_content_block"
       end
@@ -58,6 +69,25 @@ module Cms
         false
       end
 
+      def assign_parent_if_needed
+        unless parent || parent_id
+          new_parent = Cms::Section.with_path(self.class.path).first
+
+          unless new_parent
+            logger.warn "Creating default section for #{self.try(:display_name)} in #{self.class.path}."
+            section_attributes = {:name => self.class.name.demodulize.pluralize,
+                                  :path => self.class.path,
+                                  :hidden => true,
+                                  allow_groups: :all}
+            section_parent = Cms::Section.root.first
+            if section_parent
+              section_attributes[:parent] = section_parent
+            end
+            new_parent = Cms::Section.create!(section_attributes)
+          end
+          self.parent_id = new_parent.id
+        end
+      end
     end
 
     module Addressable
@@ -132,15 +162,8 @@ module Cms
           end
 
         end
-
-        def self.included(klass)
-          #klass.attr_accessible :slug
-        end
       end
 
-      def self.included(model_class)
-        #model_class.attr_accessible :parent, :parent_id
-      end
 
       # Returns all classes which need a custom route to show themselves.
       def self.classes_that_require_custom_routes
@@ -200,6 +223,10 @@ module Cms
 
       def cache_parent(section)
         @parent = section
+      end
+
+      def parent_id
+        parent.try(:id)
       end
 
       def parent_id=(id)

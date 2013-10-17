@@ -9,6 +9,28 @@ describe Cms::Form do
       form.name.must_equal "Contact Us"
       form.persisted?.must_equal true
     end
+
+    it "should create a slug when created " do
+      form.slug = "/contact-us"
+      form.save!
+      form.reload.section_node.wont_be_nil
+      form.section_node.slug.must_equal "/contact-us"
+    end
+
+    it "should assign parent with created" do
+      form.save!
+      form.parent.wont_be_nil
+      form.section_node.slug.must_equal
+    end
+
+  end
+
+  describe '#update' do
+    let(:saved_form){Cms::Form.create! }
+    it "should update slug" do
+      saved_form.update({name: 'New', slug: '/about-us'}).must_equal true
+      saved_form.reload.section_node.slug.must_equal '/about-us'
+    end
   end
 
   describe '.show_text?' do
