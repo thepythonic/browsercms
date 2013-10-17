@@ -30,6 +30,9 @@ describe Cms::Concerns::Addressable do
     ActiveRecord::Base.connection.instance_eval do
       drop_table(name) if table_exists?(name)
       create_table(name, &block)
+      change_table name do |t|
+        t.timestamps
+      end
     end
   end
 
@@ -121,6 +124,11 @@ describe Cms::Concerns::Addressable do
   describe ".slug" do
     it "should be nil for new objects" do
       addressable.slug.must_be_nil
+    end
+
+    it "setting it should mark the record as changed, so it will persist" do
+      addressable.slug = 'new'
+      addressable.changed?.must_equal true
     end
   end
 

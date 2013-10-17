@@ -30,6 +30,7 @@ module Cms
         include Cms::Concerns::Addressable
         extend Cms::Concerns::Addressable::ClassMethods
         include Cms::Concerns::Addressable::NodeAccessors
+        include Cms::Concerns::Addressable::MarkAsDirty
 
         if options[:path]
           @path = options[:path]
@@ -160,7 +161,7 @@ module Cms
           else
             @slug = slug # Store temporarily until there is a section_node created.
           end
-
+          dirty!
         end
       end
 
@@ -298,6 +299,19 @@ module Cms
         def section=(sec)
           self.parent = sec
 
+        end
+      end
+
+      # Allows records to be marked as being changed, which can be called to trigger updates when
+      # associated objects may have been changed.
+      module MarkAsDirty
+        # Forces this record to be changed, even if nothing has changed
+        # This is necessary if just the section.id has changed, for example
+        # test if this is necessary now that the attributes are in the
+        # model itself.
+        def dirty!
+          # Seems like a hack, is there a better way?
+          self.updated_at = Time.now
         end
       end
     end
