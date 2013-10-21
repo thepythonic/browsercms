@@ -1,4 +1,4 @@
 <%= content_for :button_bar do %>
     <%= render 'buttonbar' %>
 <% end %>
-<iframe id="page_content" src="<%= url_for([main_app, :inline, @block]) %>" frameborder="0" height="1600px" width="100%"></iframe>
+<iframe id="page_content" src="<%= main_app.polymorphic_path([@block, :inline]) %>" frameborder="0" height="1600px" width="100%"></iframe>

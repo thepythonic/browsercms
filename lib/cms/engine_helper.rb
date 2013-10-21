@@ -3,12 +3,7 @@ module Cms
   class EngineAwarePathBuilder
 
     def initialize(model_class_or_content_type_or_model)
-      # ContentType
-      if model_class_or_content_type_or_model.respond_to? :model_class
-        @path_subject = model_class_or_content_type_or_model.model_class
-      else # Class or Model
-        @path_subject = model_class_or_content_type_or_model
-      end
+      normalize_subject_class(model_class_or_content_type_or_model)
     end
 
     # The object that will be added to the constructed path.
@@ -24,13 +19,17 @@ module Cms
       end
     end
 
-    def build(view)
+    def build_preview(view)
       path = []
       path << engine_name
-      path << "cms" if main_app_model?
       path << path_subject
+      path
+    end
 
-      path[0] = view.send(path[0]) # Replace the engine name with an actual lookup of the proper Engine routeset
+    def build(view)
+      path = []
+      path << engine(view)
+      path << path_subject
       path
     end
 
@@ -51,9 +50,32 @@ module Cms
       end
       engine.engine_name
     end
+
+    private
+
+    # Allows ContentType, Class, or model to be passed.
+    def normalize_subject_class(model_class_or_content_type_or_model)
+      if model_class_or_content_type_or_model.respond_to? :model_class # i.e. ContentType
+        @path_subject = model_class_or_content_type_or_model.model_class
+      else # Class or Model
+        @path_subject = model_class_or_content_type_or_model
+      end
+    end
+
+    # Loads the actual engine (which contains the RouteSet.)
+    # See http://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html
+    def engine(view)
+      view.send(engine_name)
+    end
+
   end
 
   module EngineHelper
+
+    # Returns the name of the current application (i.e. Dummy).
+    def application_name
+      Rails.application.class.parent_name
+    end
 
     def main_app_model?
       engine_name == "main_app"
@@ -78,7 +100,6 @@ module Cms
 
     def path_elements
       path = []
-      path << "cms" if main_app_model?
       path << path_subject
     end
 

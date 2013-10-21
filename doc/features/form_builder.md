@@ -1,6 +1,34 @@
 # Make a Form Builder
 
 * BUG: New portlets/products/catalogs don't work (removed block_path)
+    * Refactor to remove need for 'block_path' hackery.
+    * Issues:
+        - Generated models are routed via namespace :cms, but aren't in the namespace.
+        - Portlets don't get their own routes
+    * content_block :products should really put the model into the Cms namespace.
+    * Add better support for syntax errors during bootup
+    * Moving models under Cms:: namespace means it guesses the wrong engine.
+
+Move Catalog/DeprecatedInput/SampleBlock
+
+## Refactor (Look at these classes)
+*  EngineHelper -> Remove all path_element helpers
+*  ContentBlockController.assign_parent -> Remove
+*  ContentType.find_by_key -> Remove Cms:: namespace searching
+
+* BUG: Products are not persisting name/slug
+* BUG: Cms::CategoryType.display_name fails (for /cms/category_types/1/edit)
+* Features: Generates need to blocks in proper location (/dummy)
+* Features: Upgrading project. Need reasonable error messages for missing things.
+
+Changes to document:
+
+    Custom models should have the following added to them:
+        Create a directory in the project named app/models/cms
+        Move any Content Blocks into that directory.
+        Rename from Widget to *Cms::*Widget
+        Add self.table_name = :widgets (or migrate the table from widgets to cms_widgets)
+
 * Then pick another input type (Dropdown?)  [Add subclasses?]
 * Need to allow be able to select template for specific forms.
 * Need a way to clean up new forms that created during 'new' operation. (Leave page JS popup?)

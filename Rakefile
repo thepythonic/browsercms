@@ -20,7 +20,7 @@ Bundler::GemHelper.install_tasks
 
 require 'rake/testtask'
 
-Rake::TestTask.new('test:units') do |t|
+Rake::TestTask.new('units') do |t|
   t.libs << 'lib'
   t.libs << 'test'
   t.pattern = 'test/unit/**/*_test.rb'
@@ -67,9 +67,18 @@ end
 desc "Run everything but the command line (slow) tests"
 task 'test:fast' => %w{test:units test:functionals test:integration features:fast}
 
+desc "Runs all unit level tests"
+task 'test:units' do
+  run_tests ["units", "spec"]
+end
+
 desc 'Runs all the tests, specs and scenarios.'
 task :test => ['project:ensure_db_exists', 'app:test:prepare'] do
   tests_to_run = ENV['TEST'] ? ["test:single"] : %w(test:units spec test:functionals test:integration features)
+  run_tests(tests_to_run)
+end
+
+def run_tests(tests_to_run)
   errors = tests_to_run.collect do |task|
     begin
       Rake::Task[task].invoke

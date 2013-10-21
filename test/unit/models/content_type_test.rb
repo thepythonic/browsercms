@@ -27,6 +27,12 @@ class Unnamespaced < ActiveRecord::Base
   acts_as_content_block
 end
 
+module Dummy
+  class Widget < ActiveRecord::Base
+    acts_as_content_block
+  end
+end
+
 class Widget < ActiveRecord::Base
   acts_as_content_block
 end
@@ -55,8 +61,8 @@ module Cms
       assert_equal AudioTour, Cms::ContentType.find_by_key('AudioTour').model_class
     end
 
-    test "#find_by_key searches Cms:: then non Cms:: namespace class" do
-      assert_equal Product, Cms::ContentType.find_by_key('Cms::Product').model_class
+    test "#find_by_key finds namespaced models" do
+      assert_equal Dummy::Product, Cms::ContentType.find_by_key('Dummy::Product').model_class
     end
 
     test "#find_by_key using key" do
@@ -77,13 +83,13 @@ module Cms
       assert_equal "String", Cms::ContentType.new(:name => "String").display_name
     end
 
-    test "#form for unnamespaced blocks" do
-      widget_type = Cms::ContentType.new(:name => "Widget")
-      assert_equal "cms/widgets/form", widget_type.form
+    test "#form for Core modules" do
+      widget_type = Cms::ContentType.new(:name => "Dummy::Widget")
+      assert_equal "dummy/widgets/form", widget_type.form
     end
 
     test "template_path" do
-      assert_equal "cms/widgets/render", Widget.template_path
+      assert_equal "dummy/widgets/render", Dummy::Widget.template_path
     end
 
     test "template_path for modules" do
@@ -123,7 +129,7 @@ module Cms
     end
 
     test "path_elements for an app ContentType" do
-      assert_equal ["cms", Unnamespaced], unnamespaced_type().path_elements
+      assert_equal [Unnamespaced], unnamespaced_type().path_elements
     end
 
     def test_model_class

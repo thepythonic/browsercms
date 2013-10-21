@@ -1,4 +1,4 @@
-module Cms
+module Dummy
   class ProductsController < Cms::ContentBlockController
 
 

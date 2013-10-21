@@ -117,11 +117,7 @@ module Cms
 
     # Returns the partial used to render the form fields for a given block.
     def form
-      f = model_class.respond_to?(:form) ? model_class.form : "#{name.underscore.pluralize}/form"
-      if main_app_model?
-        f = "cms/#{f}"
-      end
-      f
+     model_class.respond_to?(:form) ? model_class.form : "#{name.underscore.pluralize}/form"
     end
 
     def display_name

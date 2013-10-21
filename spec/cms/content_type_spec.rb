@@ -64,7 +64,7 @@ describe Cms::ContentType do
   describe '#connectable?' do
     it "should mark content_types as connectable to pages" do
       Cms::HtmlBlock.content_type.connectable?.must_equal true
-      Product.content_type.connectable?.must_equal true
+      Dummy::Product.content_type.connectable?.must_equal true
 
       [Cms::Category, Cms::Tag, Cms::CategoryType].each do |unconnectable|
         unconnectable.content_type.connectable?.must_equal false

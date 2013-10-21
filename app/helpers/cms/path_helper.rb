@@ -89,6 +89,7 @@ module Cms
       end
     end
 
+
     # Return the path for a given block. Similar to polymorphic_path but handles resources from different engines.
     #
     # @param [Object] block A content block
@@ -130,6 +131,14 @@ module Cms
 
     def build_path_for(model_or_class_or_content_type)
       Cms::EngineAwarePathBuilder.new(model_or_class_or_content_type).build(self)
+    end
+
+    # Wraps polymorphic_path to include the engine.
+    alias :engine_aware_path :build_path_for
+
+    # Wrappers new_polymorphic_path to be engine aware.
+    def new_engine_aware_path(subject)
+      new_polymorphic_path(build_path_for(subject))
     end
 
     # Returns the name of the collection that this resource belongs to

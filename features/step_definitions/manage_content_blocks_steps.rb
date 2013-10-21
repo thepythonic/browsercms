@@ -7,18 +7,14 @@ end
 
 World(CustomBlockHelpers)
 
-When /^a Content Type named "Product" is registered$/ do
-  register_content_type("Product")
-end
-
 Given /^the following products exist:$/ do |table|
   # table is a | 1  | iPhone      | 400   |
   table.hashes.each do |row|
-    Product.create!(:id => row['id'], :name => row['name'], :price => row['price'])
+    Dummy::Product.create!(:id => row['id'], :name => row['name'], :price => row['price'])
   end
 end
 When /^I delete "([^"]*)"$/ do |product_name|
-  p = Product.find_by_name(product_name)
+  p = Dummy::Product.find_by_name(product_name)
   page.driver.delete "/cms/products/#{p.id}"
 end
 Then /^I should be redirected to ([^"]*)$/ do |path|
@@ -56,7 +52,7 @@ end
 Given /^there are multiple pages of products in the Content Library$/ do
   per_page = WillPaginate.per_page
   (per_page * 2).times do |i|
-    Product.create(:name => "Product #{i}")
+    Dummy::Product.create(:name => "Product #{i}")
   end
 end
 

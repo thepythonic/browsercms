@@ -259,7 +259,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :product, :class => Product do |product|
+  factory :product, :class => Dummy::Product do |product|
     product.name "Product"
     product.sequence(:slug) { |n| "/product-#{n}" }
   end
