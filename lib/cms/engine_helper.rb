@@ -31,6 +31,7 @@ module Cms
       path << engine(view)
       path << path_subject
       path
+
     end
 
     def main_app_model?
@@ -39,7 +40,8 @@ module Cms
 
     # Determine which 'Engine' this model is from based on the class
     def engine_name
-      name = EngineHelper.module_name(subject_class)
+      model_class = subject_class.model_name
+      name = EngineHelper.module_name(model_class)
       return "main_app" unless name
 
       begin

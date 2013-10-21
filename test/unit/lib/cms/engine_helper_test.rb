@@ -10,16 +10,23 @@ module Cms
     end
 
     include EngineHelper
+
+    extend ::ActiveModel::Naming
   end
 end
 
 module Dummy
   class MainAppThing
     include Cms::EngineHelper
+    extend ::ActiveModel::Naming
   end
 end
 
 class NewThing
+
+end
+
+class PortletSubclass < Cms::Portlet
 
 end
 
@@ -28,6 +35,7 @@ module BcmsWidgets
   end
   class ContentBlock
     include Cms::EngineHelper
+    extend ::ActiveModel::Naming
   end
 end
 
@@ -177,6 +185,15 @@ module Cms
       assert_equal [:cms_engine, Cms::CoreContentBlock], @pathbuilder.build(view_for_cms_engine)
     end
 
+    test "#engine_name for classes that support PolymorphicSTI" do
+      assert_equal "cms", path_builder(PortletSubclass).engine_name
+    end
+
+    private
+
+    def path_builder(klass)
+      EngineAwarePathBuilder.new(klass)
+    end
 
   end
 

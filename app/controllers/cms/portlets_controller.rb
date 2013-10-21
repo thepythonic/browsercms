@@ -12,13 +12,14 @@ class PortletsController < Cms::ContentBlockController
       if params[:type].blank?
         @block = model_class.new
       else
-        @block = params[:type].classify.constantize.new(params[params[:type]])
+        @block = params[:type].classify.constantize.new(params[:portlet])
       end
+
     end
     
     def update_block
       load_block
-      @block.update_attributes(params[@block.class.name.underscore])
+      @block.update(params[:portlet])
     end    
     
     def block_form

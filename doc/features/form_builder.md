@@ -1,20 +1,20 @@
 # Make a Form Builder
 
-* BUG: New portlets/products/catalogs don't work (removed block_path)
-    * Refactor to remove need for 'block_path' hackery.
-    * Issues:
-        - Portlets don't get their own routes
-    * Add better support for syntax errors during bootup
+Start with fixing remaining scenarios:
+cucumber features/content_blocks/deprecated_form_inputs.feature:11 # Scenario: Create a new block using deprecated fields
+cucumber features/content_blocks/form_controls.feature:29 # Scenario: Updating multiple attachments
 
 
 ## Refactor (Look at these classes)
 *  EngineHelper -> Remove all path_element helpers
+*   Massive Duplication between enginehelper and EngineAwarePathBuilder
 *  ContentBlockController.assign_parent -> Remove
 *  ContentType.find_by_key -> Remove Cms:: namespace searching
+* Refactor to remove need for 'block_path' hackery.
+* Add better support for syntax errors during bootup
 
 * BUG: Multiple Attachments (i.e. Catalogs) aren't uploading.
 * BUG: Products/Catalogs are not persisting name/slug
-* BUG: Adding Portlets is broken
 * BUG: Cms::CategoryType.display_name fails (for /cms/category_types/1/edit)
 * Features: Generates need to blocks in proper location (/dummy)
 * Features: Upgrading project. Need reasonable error messages for missing things.
