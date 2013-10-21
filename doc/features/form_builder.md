@@ -3,20 +3,18 @@
 * BUG: New portlets/products/catalogs don't work (removed block_path)
     * Refactor to remove need for 'block_path' hackery.
     * Issues:
-        - Generated models are routed via namespace :cms, but aren't in the namespace.
         - Portlets don't get their own routes
-    * content_block :products should really put the model into the Cms namespace.
     * Add better support for syntax errors during bootup
-    * Moving models under Cms:: namespace means it guesses the wrong engine.
 
-Move Catalog/DeprecatedInput/SampleBlock
 
 ## Refactor (Look at these classes)
 *  EngineHelper -> Remove all path_element helpers
 *  ContentBlockController.assign_parent -> Remove
 *  ContentType.find_by_key -> Remove Cms:: namespace searching
 
-* BUG: Products are not persisting name/slug
+* BUG: Multiple Attachments (i.e. Catalogs) aren't uploading.
+* BUG: Products/Catalogs are not persisting name/slug
+* BUG: Adding Portlets is broken
 * BUG: Cms::CategoryType.display_name fails (for /cms/category_types/1/edit)
 * Features: Generates need to blocks in proper location (/dummy)
 * Features: Upgrading project. Need reasonable error messages for missing things.

@@ -7,7 +7,7 @@ Feature: Manage Content Blocks
     Given I am logged in as a Content Editor
 
   Scenario: List Content Blocks
-    When I request /cms/products
+    When I view products in the content library
     Then I should see "List Products"
 
   Scenario: List Content Blocks
@@ -23,10 +23,10 @@ Feature: Manage Content Blocks
       | Tag           |
 
   Scenario: Create a new block
-    When I request /cms/products/new
+    When I add a new product
     Then I should see "Add New Product"
     When I fill in "Name" with "iPhone"
-    And I fill in "product_slug" with "/iphone"
+    And I fill in "Slug" with "/iphone"
     And I click on "Save"
     Then a new product should be created
 
@@ -36,11 +36,11 @@ Feature: Manage Content Blocks
       | 1  | iPhone      | 400   |
       | 2  | Kindle Fire | 200   |
     When I delete "Kindle Fire"
-    Then I should be redirected to /cms/products
+    Then I should be returned to the view products page in the content library
 
   Scenario: Multiple Pages
     Given there are multiple pages of products in the Content Library
-    When I request /cms/products
+    When I view products in the content library
     Then I should see the paging controls
     And I click on "next_page_link"
     Then I should see the second page of content

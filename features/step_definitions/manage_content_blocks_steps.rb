@@ -15,8 +15,13 @@ Given /^the following products exist:$/ do |table|
 end
 When /^I delete "([^"]*)"$/ do |product_name|
   p = Dummy::Product.find_by_name(product_name)
-  page.driver.delete "/cms/products/#{p.id}"
+  page.driver.delete dummy_product_path(p)
 end
+
+Then /^I should be returned to the view products page in the content library$/ do
+  assert_equal dummy_products_url, page.response_headers["Location"]
+end
+
 Then /^I should be redirected to ([^"]*)$/ do |path|
   assert_equal "http://www.example.com#{path}", page.response_headers["Location"]
 end
@@ -48,6 +53,7 @@ Given /^there are multiple pages of html blocks in the Content Library$/ do
     create(:html_block)
   end
 end
+
 
 Given /^there are multiple pages of products in the Content Library$/ do
   per_page = WillPaginate.per_page
@@ -90,4 +96,7 @@ When /^I should see it's draft mode$/ do
   within("#page-status-label") do
     assert page.has_content?('DRAFT')
   end
+end
+When /^I add a new product$/ do
+  visit new_dummy_product_path
 end

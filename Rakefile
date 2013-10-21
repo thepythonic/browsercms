@@ -52,11 +52,11 @@ require 'cucumber'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:features => ['project:ensure_db_exists', 'app:test:prepare']) do |t|
-  t.cucumber_opts = "features --format progress"
+  t.cucumber_opts = "launch_on_failure=false features --format progress"
 end
 
 Cucumber::Rake::Task.new('features:fast' => ['project:ensure_db_exists', 'app:test:prepare']) do |t|
-  t.cucumber_opts = "features --format progress --tags ~@cli"
+  t.cucumber_opts = "launch_on_failure=false features --format progress --tags ~@cli"
 end
 
 Cucumber::Rake::Task.new('features:cli' => ['project:ensure_db_exists', 'app:test:prepare']) do |t|
