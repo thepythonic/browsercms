@@ -2,6 +2,9 @@ require 'test_helper'
 
 class HtmlBlockTest < ActiveSupport::TestCase
 
+  test "#model_form_name" do
+    assert_equal "html_block", Cms::HtmlBlock.content_type.model_class_form_name
+  end
   test "#paginate" do
     red = create(:html_block, name: 'red')
     blue = create(:html_block, name: 'blue')

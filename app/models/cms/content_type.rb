@@ -159,7 +159,7 @@ module Cms
     # Cms::HtmlBlock -> html_block
     # ThingBlock -> thing_block
     def model_class_form_name
-      model_class.model_name.element
+      model_class.model_name.param_key
     end
 
     # Allows models to show additional columns when being shown in a list.
