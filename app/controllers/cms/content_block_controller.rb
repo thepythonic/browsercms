@@ -10,7 +10,7 @@ module Cms
     allow_guests_to [:show_via_slug]
     before_filter :set_toolbar_tab
 
-    helper_method :block_form, :new_block_path, :block_path, :blocks_path, :content_type
+    helper_method :block_form, :new_block_path, :blocks_path, :content_type
     helper Cms::RenderingHelper
 
     def index
@@ -85,14 +85,14 @@ module Cms
 
     def publish
       do_command("published") { @block.publish! }
-      redirect_to_first params[:_redirect_to], block_path(@block)
+      redirect_to_first params[:_redirect_to], engine_aware_path(@block, nil)
     end
 
     def revert_to
       do_command("reverted to version #{params[:version]}") do
         revert_block(params[:version])
       end
-      redirect_to_first params[:_redirect_to], block_path(@block)
+      redirect_to_first params[:_redirect_to], engine_aware_path(@block, nil)
     end
 
     def version
@@ -212,7 +212,7 @@ module Cms
       if @block.class.connectable? && @block.connected_page
         redirect_to @block.connected_page.path
       else
-        redirect_to_first params[:_redirect_to], block_path(@block)
+        redirect_to_first params[:_redirect_to], engine_aware_path(@block)
       end
     end
 
@@ -247,7 +247,7 @@ module Cms
 
     def after_update_on_success
       flash[:notice] = "#{content_type_name.demodulize.titleize} '#{@block.name}' was updated"
-      redirect_to_first params[:_redirect_to], block_path(@block)
+      redirect_to_first params[:_redirect_to], engine_aware_path(@block)
     end
 
     def after_update_on_failure

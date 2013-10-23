@@ -90,60 +90,63 @@ module Cms
     end
 
 
-    # Return the path for a given block. Similar to polymorphic_path but handles resources from different engines.
-    #
-    # @param [Object] block A content block
-    # @param [String] action (Optional) i.e. :edit
-    # @return [Array] An array of argument suitable to be passed to url_for or link_to helpers. This will be something like:
-    #     [main_app, :cms, :products, @block, :edit]
-    #  or [cms, :html_blocks, @block]
-    #
-    # This will work whether the block is:
-    #   1. A custom unnamespaced block in a project (i.e. Product)
-    #   2. A core CMS block (i.e. Cms::Portlet)
-    #   3. A block in a module (i.e. BcmsNews::NewsArticle)
-    # e.g.
-    #   block_path(Product.find(1)) => /cms/products/1
-    #   block_path(Cms::HtmlBlock.find(1)) => /cms/html_blocks/1
-    #   block_path(BcmsNews::NewsArticle.find(1)) => /bcms_news/news_articles/1
-    #
-    def block_path(block, action=nil)
-      path = []
-      path << engine_for(block)
-      path << action if action
-      path.concat path_elements_for(block)
-      path
-    end
-
-    # Returns the Engine Proxy that this resource is from.
-    def engine_for(resource)
+    # Returns the route proxy (aka engine) for a given resource, which can then have named paths called on it.
+    #  I.e. engine(@block).polymorphic_path([@block, :preview])
+    # 
+    # @param [ActiveRecord::Base] resource
+    # @return [ActionDispatch::Routing::RoutesProxy]
+    def engine(resource)
       EngineHelper.decorate(resource)
       send(resource.engine_name)
     end
+
+    # @deprecated
+    alias :engine_for :engine
 
     def path_elements_for(resource)
       EngineHelper.decorate(resource)
       resource.path_elements
     end
 
-    private
-
-
-    def build_path_for(model_or_class_or_content_type)
-      Cms::EngineAwarePathBuilder.new(model_or_class_or_content_type).build(self)
-    end
-
-    # Wraps polymorphic_path to include the engine.
+    # Return the path for a given resource. Determines the relevant engine, and the result can be passed to polymporhic_path
+    #
+    # @param [Object] model_or_class_or_content_type A content block, class or content type.
+    # @param [String] action (Optional) i.e. :edit
+    # @return [Array] An array of argument suitable to be passed to url_for or link_to helpers. This will be something like:
+    #     [main_app, :dummy_products, @block, :edit]
+    #  or [cms, :html_blocks, @block]
+    #
+    # This will work whether the block is:
+    #   1. A block in a project (namespaced to the project) (i.e. Dummy::Product)
+    #   2. A core CMS block (i.e. Cms::Portlet)
+    #   3. A block in a module (i.e. BcmsNews::NewsArticle)
+    # e.g.
+    #   engine_aware_path(Dummy::Product.find(1)) => /dummy/products/1
+    #   engine_aware_path(Cms::HtmlBlock.find(1)) => /cms/html_blocks/1
+    #   engine_aware_path(BcmsNews::NewsArticle.find(1)) => /bcms_news/news_articles/1
+    #
     def engine_aware_path(model_or_class_or_content_type, action = false)
       elements = build_path_for(model_or_class_or_content_type)
       elements << action if action
       elements
     end
 
+    # Wrappers edit_polymorphic_path to be engine aware.
+    def edit_engine_aware_path(model_or_class_or_content_type)
+      edit_polymorphic_path(build_path_for(model_or_class_or_content_type))
+    end
+
     # Wrappers new_polymorphic_path to be engine aware.
     def new_engine_aware_path(subject)
       new_polymorphic_path(build_path_for(subject))
     end
+
+    private
+
+    def build_path_for(model_or_class_or_content_type)
+      Cms::EngineAwarePathBuilder.new(model_or_class_or_content_type).build(self)
+    end
+
 
     # Returns the name of the collection that this resource belongs to
     # the resource can be a ContentType, ActiveRecord::Base instance

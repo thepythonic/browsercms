@@ -67,6 +67,7 @@ module ExpectedMockViews
     @view = stub()
   end
 end
+
 module Cms
   class EngineHelperTest < ActiveSupport::TestCase
 

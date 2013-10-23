@@ -5,13 +5,14 @@
 *  EngineHelper -> Remove all path_element helpers
 *   Massive Duplication between enginehelper and EngineAwarePathBuilder
 *  ContentType.find_by_key -> Remove Cms:: namespace searching
-* Refactor to remove need for 'block_path' hackery.
+* Remove new_block_path
 * Add better support for syntax errors during bootup
 - ActiveModel::Name is very much like Cms::ContentType. Increase parrallels
 
 * BUG: Cms::CategoryType.display_name fails (for /cms/category_types/1/edit)
 * Features: Generates need to blocks in proper location (/dummy)
 * Features: Upgrading project. Need reasonable error messages for missing things.
+* Add Scenarios to cover managing forms.
 
 Changes to document:
 

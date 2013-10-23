@@ -17,8 +17,8 @@ module Cms::RouteExtensions
     end
 
     if model_class.versioned?
-      send("get", "/#{content_block_name}/:id/version/:version", :to => "#{content_block_name}#version", :as => "version_cms_#{content_block_name}".to_sym)
-      send("put", "/#{content_block_name}/:id/revert_to/:version", :to => "#{content_block_name}#revert_to", :as => "revert_to_cms_#{content_block_name}".to_sym)
+      get "/#{content_block_name}/:id/version/:version", :to => "#{content_block_name}#version", :as => "#{content_block_name}_version"
+      put "/#{content_block_name}/:id/revert_to/:version", :to => "#{content_block_name}#revert_to", :as => "revert_to_cms_#{content_block_name}"
     end
 
   end
