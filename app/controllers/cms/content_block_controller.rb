@@ -10,7 +10,7 @@ module Cms
     allow_guests_to [:show_via_slug]
     before_filter :set_toolbar_tab
 
-    helper_method :block_form, :blocks_path, :content_type
+    helper_method :block_form, :content_type
     helper Cms::RenderingHelper
 
     def index
@@ -75,7 +75,7 @@ module Cms
     def destroy
       do_command("deleted") { @block.destroy }
       respond_to do |format|
-        format.html { redirect_to_first params[:_redirect_to], blocks_path }
+        format.html { redirect_to_first params[:_redirect_to], engine_aware_path(@block.class) }
         format.json { render :json => {:success => true} }
       end
 
@@ -170,10 +170,6 @@ module Cms
     end
 
     # path related methods - available in the view as helpers
-
-    def blocks_path(options={})
-      cms_index_path_for(@content_type.model_class, options)
-    end
 
     # This is the partial that will be used in the form
     def block_form

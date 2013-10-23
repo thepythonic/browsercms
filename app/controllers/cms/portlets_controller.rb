@@ -26,8 +26,5 @@ class PortletsController < Cms::ContentBlockController
       "portlets/portlets/form"
     end
 
-    def blocks_path
-      portlets_path
-    end
 end
 end

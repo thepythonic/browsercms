@@ -16,7 +16,6 @@ class PermissionsForContentBlockControllerTest < ActionController::TestCase
     @controller.stubs(:render)
     @controller.stubs(:model_class).returns(Dummy::SampleBlock)
     @controller.stubs(:set_default_category)
-    @controller.stubs(:blocks_path).returns("/cms/sample_block")
     @controller.stubs(:engine_aware_path).returns("/cms/sample_block")
     @controller.stubs(:redirect_to_first).returns("/cms/sample_block")
 
