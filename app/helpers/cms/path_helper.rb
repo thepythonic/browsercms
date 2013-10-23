@@ -28,18 +28,6 @@ module Cms
       polymorphic_path(engine_aware_path(content_type.model_class), filtered_params)
     end
 
-
-    # @todo Really needs to be renamed to match conventions for Engines.
-    # In CMS::Engine, should be edit_connectable_path
-    # From app, should be cms.edit_connectable_path
-    def edit_cms_connectable_path(connectable, options={})
-      if Portlet === connectable
-        edit_portlet_path(connectable, options)
-      else
-        edit_polymorphic_path(build_path_for(connectable), options)
-      end
-    end
-
     def link_to_usages(block)
       count = block.connected_pages.count
       if count > 0
@@ -102,8 +90,8 @@ module Cms
     end
 
     # Wrappers edit_polymorphic_path to be engine aware.
-    def edit_engine_aware_path(model_or_class_or_content_type)
-      edit_polymorphic_path(build_path_for(model_or_class_or_content_type))
+    def edit_engine_aware_path(model_or_class_or_content_type, options={})
+      edit_polymorphic_path(build_path_for(model_or_class_or_content_type), options)
     end
 
     # Wrappers new_polymorphic_path to be engine aware.
