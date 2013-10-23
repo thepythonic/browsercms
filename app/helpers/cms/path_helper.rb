@@ -20,25 +20,14 @@ module Cms
     #
     # @param [Cms::ContentType] content_type
     # @param [String] column_to_sort The name of the column to sort on.
-    def cms_sortable_column_path(content_type, column_to_sort)
+    def sortable_column_path(content_type, column_to_sort)
       filtered_params = params.clone
       filtered_params.delete(:action)
       filtered_params.delete(:controller)
       filtered_params.merge!(:order => determine_order(filtered_params[:order], column_to_sort))
-      cms_connectable_path(content_type.model_class, filtered_params)
+      polymorphic_path(engine_aware_path(content_type.model_class), filtered_params)
     end
 
-    # @param [Class, String] connectable The model class (i.e. HtmlBlock) or plural collection name (html_blocks) to link to
-    # @param [Hash] options Passed to polymorphic_path
-    #
-    # @return [String] path suitable to give to link_to
-    def cms_connectable_path(connectable, options={})
-      if connectable.is_a?(Class) && connectable < Portlet
-        cms.portlet_path(connectable)
-      else
-        polymorphic_path(build_path_for(connectable), options)
-      end
-    end
 
     # @todo Really needs to be renamed to match conventions for Engines.
     # In CMS::Engine, should be edit_connectable_path
