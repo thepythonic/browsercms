@@ -90,17 +90,25 @@ module Cms::RouteExtensions
     module_name = klass.name.deconstantize.underscore
     inline_route_name = "#{base_route_name}_inline"
     unless route_exists?(inline_route_name)
-      Rails.application.routes.prepend do
-        namespace module_name do
-          begin
-            get "#{klass.path}/:id/inline", to: "#{denamespaced_controller}#inline", as: inline_route_name
-          rescue ArgumentError
-            # Because when you prepend a route, you can't easily determine if it has already been defined.
-            # This avoids the error when Cms::PageRoute.reload_routes is called.
-            Rails.logger.debug "Skipping readding existing route (probably during a route reload): get \"#{klass.path}/:id/inline\", to: \"#{denamespaced_controller}#inline\", as: #{inline_route_name}"
+      klass.content_type.engine.routes.prepend do
+        if klass.content_type.main_app_model?
+          namespace module_name do
+            inline_route(denamespaced_controller, inline_route_name, klass)
           end
+        else
+          inline_route(denamespaced_controller, inline_route_name, klass)
         end
       end
+    end
+  end
+
+  def inline_route(denamespaced_controller, inline_route_name, klass)
+    begin
+      get "#{klass.path}/:id/inline", to: "#{denamespaced_controller}#inline", as: inline_route_name
+    rescue ArgumentError
+      # Because when you prepend a route, you can't easily determine if it has already been defined.
+      # This avoids the error when Cms::PageRoute.reload_routes is called.
+      Rails.logger.debug "Skipping readding existing route (probably during a route reload): get \"#{klass.path}/:id/inline\", to: \"#{denamespaced_controller}#inline\", as: #{inline_route_name}"
     end
   end
 

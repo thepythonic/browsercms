@@ -134,7 +134,11 @@ module Cms
     end
 
     # Wraps polymorphic_path to include the engine.
-    alias :engine_aware_path :build_path_for
+    def engine_aware_path(model_or_class_or_content_type, action = false)
+      elements = build_path_for(model_or_class_or_content_type)
+      elements << action if action
+      elements
+    end
 
     # Wrappers new_polymorphic_path to be engine aware.
     def new_engine_aware_path(subject)

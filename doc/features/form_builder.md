@@ -1,12 +1,13 @@
 # Make a Form Builder
 
+
 ## Refactor (Look at these classes)
 *  EngineHelper -> Remove all path_element helpers
 *   Massive Duplication between enginehelper and EngineAwarePathBuilder
-*  ContentBlockController.assign_parent -> Remove
 *  ContentType.find_by_key -> Remove Cms:: namespace searching
 * Refactor to remove need for 'block_path' hackery.
 * Add better support for syntax errors during bootup
+- ActiveModel::Name is very much like Cms::ContentType. Increase parrallels
 
 * BUG: Cms::CategoryType.display_name fails (for /cms/category_types/1/edit)
 * Features: Generates need to blocks in proper location (/dummy)

@@ -122,23 +122,6 @@ module Cms
 
     protected
 
-    def assign_parent_if_specified
-      if params[:parent]
-        @block.parent_id = params[:parent]
-      elsif @block.class.addressable?
-        parent = Cms::Section.with_path(@block.class.path).first
-        unless parent
-          logger.warn "Creating default section for #{@block.display_name} in #{@block.class.path}."
-          parent = Cms::Section.create(:name => @block.class.name.demodulize.pluralize,
-                                       :parent => Cms::Section.root.first,
-                                       :path => @block.class.path,
-                                       :hidden => true,
-                                       allow_groups: :all)
-        end
-        @block.parent_id = parent.id
-      end
-    end
-
     def content_type_name
       self.class.name.sub(/Controller/, '').singularize
     end
@@ -220,7 +203,6 @@ module Cms
 
     def create_block
       build_block
-      assign_parent_if_specified
       @block.save
     end
 

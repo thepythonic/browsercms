@@ -56,6 +56,14 @@ module Cms
 
   class ContentTypeTest < ActiveSupport::TestCase
 
+    test "#engine for applications" do
+      assert_equal Rails.application, Dummy::Widget.content_type.engine
+    end
+
+    test "#engine for Engines" do
+      assert_equal BcmsStore::Engine, BcmsStore::Widget.content_type.engine
+    end
+
     test "ContentTypes with matching suffixes" do
       assert_equal Tour, Cms::ContentType.find_by_key('Tour').model_class
       assert_equal AudioTour, Cms::ContentType.find_by_key('AudioTour').model_class

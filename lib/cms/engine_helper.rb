@@ -79,6 +79,15 @@ module Cms
       Rails.application.class.parent_name
     end
 
+    # Returns the specific engine this contenttype belongs to.
+    def engine
+      if main_app_model?
+        Rails.application
+      else
+        engine_class(target_class)
+      end
+    end
+
     def main_app_model?
       engine_name == "main_app"
     end
@@ -98,6 +107,12 @@ module Cms
         return "main_app"
       end
       engine.engine_name
+    end
+
+    # Will raise NameError if klass::Engine doesn't exist.
+    def engine_class(klass)
+      name = EngineHelper.module_name(klass)
+      "#{name}::Engine".constantize
     end
 
     def path_elements
