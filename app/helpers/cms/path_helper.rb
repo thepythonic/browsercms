@@ -28,25 +28,6 @@ module Cms
       cms_connectable_path(content_type.model_class, filtered_params)
     end
 
-    # @deprecated Use cms_connectable_path instead.
-    def cms_index_path_for(resource, options={})
-      polymorphic_path(build_path_for(resource), options)
-    end
-
-    # @deprecated Remove all usages of this in favor of cms_index_path_for ()
-    def cms_index_url_for(resource, options={})
-      send("#{resource_collection_name(resource).underscore.pluralize.gsub('/', '_')}_url", options)
-    end
-
-    def cms_new_path_for(resource, options={})
-      new_polymorphic_path(build_path_for(resource), options)
-    end
-
-    # @deprecated Remove all usages of this in favor of cms_new_path_for ()
-    def cms_new_url_for(resource, options={})
-      send("new_#{resource_collection_name(resource).underscore.gsub('/', '_')}_url", options)
-    end
-
     # @param [Class, String] connectable The model class (i.e. HtmlBlock) or plural collection name (html_blocks) to link to
     # @param [Hash] options Passed to polymorphic_path
     #

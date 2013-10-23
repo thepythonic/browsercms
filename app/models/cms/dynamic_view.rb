@@ -105,12 +105,6 @@ module Cms
       model_name.plural
     end
 
-    # So that route lookup works for these resources.
-    # See PathHelper#cms_index_path_for
-    def self.engine
-      "cms"
-    end
-
     def set_path
       self.path = self.class.relative_path + '/' + name
     end

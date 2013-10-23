@@ -117,7 +117,7 @@ module Cms
     end
 
     def new_button_path
-      cms_new_path_for(content_type)
+      new_engine_aware_path(content_type)
     end
 
     protected

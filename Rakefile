@@ -65,7 +65,7 @@ end
 
 
 desc "Run everything but the command line (slow) tests"
-task 'test:fast' => %w{test:units test:functionals test:integration features:fast}
+task 'test:fast' => %w{app:test:prepare test:units test:functionals test:integration features:fast}
 
 desc "Runs all unit level tests"
 task 'test:units' do

@@ -1,4 +1,4 @@
-<p><%= link_to "Add #{@default_type.display_name}", cms_new_path_for(@default_type,
+<p><%= link_to "Add #{@default_type.display_name}", new_engine_aware_path((@default_type,
           "#{@default_type.model_class_form_name}[connect_to_page_id]" => params[:connect_to_page_id],
           "#{@default_type.model_class_form_name}[connect_to_container]" => params[:connect_to_container]
         ),
@@ -7,7 +7,7 @@
 <p>Or choose another content types to add:</p>
 <ul>
   <% @content_types.each_with_index do |type, i| %>
-  <li><%= link_to h(type.display_name), cms_new_path_for(type,
+  <li><%= link_to h(type.display_name), new_engine_aware_path(type,
           "#{type.model_class_form_name}[connect_to_page_id]" => params[:connect_to_page_id],
           "#{type.model_class_form_name}[connect_to_container]" => params[:connect_to_container]
         ), :target=> "_top" %></li>
