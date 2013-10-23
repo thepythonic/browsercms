@@ -42,6 +42,7 @@ end
 class BcmsParts
   class ContentThing
     include Cms::EngineHelper
+    extend ::ActiveModel::Naming
   end
 end
 
@@ -77,10 +78,6 @@ module Cms
 
     def setup
       @cms_block = Cms::CoreContentBlock.new
-    end
-
-    test "#application_name" do
-      assert_equal "Dummy", main_app_model.application_name
     end
 
     test "#main_app?" do
@@ -139,29 +136,6 @@ module Cms
 
     test "Blocks without namespace should be in main app" do
       assert_equal "main_app", Dummy::MainAppThing.new.engine_name
-    end
-
-    test "path_elements for an instance of a class in an application" do
-      assert_equal [main_app_model], main_app_model.path_elements
-    end
-
-    test "path_elements for a class in an application" do
-      Dummy::MainAppThing.extend EngineHelper
-      assert_equal [Dummy::MainAppThing], Dummy::MainAppThing.path_elements
-    end
-
-    test "path_elements for an instance of in Cms namespace" do
-      assert_equal [@cms_block], @cms_block.path_elements
-    end
-
-    test "path_elements for a class in Cms namespace" do
-      Cms::CoreContentBlock.extend EngineHelper
-      assert_equal [Cms::CoreContentBlock], Cms::CoreContentBlock.path_elements
-    end
-
-    test "path_elements for a class in a module" do
-      BcmsWidgets::ContentBlock.extend EngineHelper
-      assert_equal [BcmsWidgets::ContentBlock], BcmsWidgets::ContentBlock.path_elements
     end
 
   end

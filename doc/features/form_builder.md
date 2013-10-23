@@ -2,6 +2,7 @@
 
 
 ## Refactor (Look at these classes)
+* Delegate ContentType to EngineAwarePathBuilder
 *  EngineHelper -> Remove all path_element helpers
 *   Massive Duplication between enginehelper and EngineAwarePathBuilder
 *  ContentType.find_by_key -> Remove Cms:: namespace searching

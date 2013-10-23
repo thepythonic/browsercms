@@ -74,10 +74,6 @@ module Cms
 
   module EngineHelper
 
-    # Returns the name of the current application (i.e. Dummy).
-    def application_name
-      Rails.application.class.parent_name
-    end
 
     # Returns the specific engine this contenttype belongs to.
     def engine
@@ -96,28 +92,19 @@ module Cms
       !main_app_model?
     end
 
-    def engine_name
-      name = EngineHelper.module_name(target_class)
-      return "main_app" unless name
 
-      begin
-        engine = "#{name}::Engine".constantize
-      rescue NameError
-        # This means there is no Engine for this model, so its from the main Rails App.
-        return "main_app"
-      end
-      engine.engine_name
+    def engine_name
+      path_builder.engine_name
+    end
+
+    def path_builder
+      @path_builder ||= EngineAwarePathBuilder.new(target_class)
     end
 
     # Will raise NameError if klass::Engine doesn't exist.
     def engine_class(klass)
       name = EngineHelper.module_name(klass)
       "#{name}::Engine".constantize
-    end
-
-    def path_elements
-      path = []
-      path << path_subject
     end
 
     # Subclasses can override this as necessary

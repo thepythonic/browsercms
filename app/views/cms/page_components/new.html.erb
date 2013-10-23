@@ -1,4 +1,4 @@
-<p><%= link_to "Add #{@default_type.display_name}", new_engine_aware_path((@default_type,
+<p><%= link_to "Add #{@default_type.display_name}", new_engine_aware_path((@default_type),
           "#{@default_type.model_class_form_name}[connect_to_page_id]" => params[:connect_to_page_id],
           "#{@default_type.model_class_form_name}[connect_to_container]" => params[:connect_to_container]
         ),

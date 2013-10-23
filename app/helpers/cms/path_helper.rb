@@ -38,7 +38,7 @@ module Cms
                  p = []
                  p << engine_for(block)
                  p << :usages
-                 p.concat path_elements_for(block)
+                 p << block
                  p
                end
         link_to count, path, :id => block.id, :block_type => block.content_block_type
@@ -60,11 +60,6 @@ module Cms
 
     # @deprecated
     alias :engine_for :engine
-
-    def path_elements_for(resource)
-      EngineHelper.decorate(resource)
-      resource.path_elements
-    end
 
     # Return the path for a given resource. Determines the relevant engine, and the result can be passed to polymporhic_path
     #
@@ -95,8 +90,8 @@ module Cms
     end
 
     # Wrappers new_polymorphic_path to be engine aware.
-    def new_engine_aware_path(subject)
-      new_polymorphic_path(build_path_for(subject))
+    def new_engine_aware_path(subject, options={})
+      new_polymorphic_path(build_path_for(subject), options)
     end
 
     private

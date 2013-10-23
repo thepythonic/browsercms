@@ -131,15 +131,6 @@ module Cms
       assert_equal "cms", cms_namespace.engine_name
     end
 
-    test "path_elements for Cms engine" do
-      cms_namespace = Cms::ContentType.new(:name => "Cms::NamespacedBlock")
-      assert_equal [Cms::NamespacedBlock], cms_namespace.path_elements
-    end
-
-    test "path_elements for an app ContentType" do
-      assert_equal [Unnamespaced], unnamespaced_type().path_elements
-    end
-
     def test_model_class
       assert_equal ReallyLongNameClass, long_name_content_type.model_class
     end
