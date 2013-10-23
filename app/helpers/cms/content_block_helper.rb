@@ -38,7 +38,7 @@ module Cms
       options[:class] = [cname]
       options[:class] << 'non-editable' unless can_modify && current_user.able_to?(:edit_content)
       options[:class] << 'non-publishable' unless can_modify && current_user.able_to?(:publish_content)
-      options['data-new_path'] = url_for(new_block_path(block))
+      options['data-new_path'] = url_for(new_engine_aware_path(block))
       options['data-view_path'] = url_for(engine_aware_path(block, nil))
       options['data-edit_path'] = url_for(edit_engine_aware_path(block))
       options['data-preview_path'] = block.path if block.class.addressable?

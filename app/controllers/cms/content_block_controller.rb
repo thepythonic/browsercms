@@ -10,7 +10,7 @@ module Cms
     allow_guests_to [:show_via_slug]
     before_filter :set_toolbar_tab
 
-    helper_method :block_form, :new_block_path, :blocks_path, :content_type
+    helper_method :block_form, :blocks_path, :content_type
     helper Cms::RenderingHelper
 
     def index
@@ -170,10 +170,6 @@ module Cms
     end
 
     # path related methods - available in the view as helpers
-
-    def new_block_path(block, options={})
-      cms_new_path_for(block, options)
-    end
 
     def blocks_path(options={})
       cms_index_path_for(@content_type.model_class, options)

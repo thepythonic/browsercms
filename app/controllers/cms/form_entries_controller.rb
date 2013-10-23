@@ -3,7 +3,7 @@ module Cms
 
     include ContentRenderingSupport
 
-    helper_method :content_type, :new_block_path
+    helper_method :content_type
     helper Cms::ContentBlockHelper
 
     allow_guests_to [:submit]
@@ -68,10 +68,6 @@ module Cms
     end
 
     protected
-
-    def new_block_path(block, options={})
-      cms.new_form_entry_path(options)
-    end
 
     def find_form_and_populate_entry
       @form = Cms::Form.find(params[:form_id])
